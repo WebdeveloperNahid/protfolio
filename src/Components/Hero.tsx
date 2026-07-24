@@ -4,14 +4,14 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { HiArrowUpRight } from "react-icons/hi2";
-import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn, FaFacebookF } from "react-icons/fa6";
 
 const TECH_STACK = ["Next.js", "React.js", "Node.js", "Express.js", "MongoDB", "TypeScript"];
 
 const SOCIAL_LINKS = [
   { icon: FaGithub, href: "https://github.com/", label: "GitHub" },
   { icon: FaLinkedinIn, href: "https://linkedin.com/", label: "LinkedIn" },
-  { icon: FaXTwitter, href: "https://x.com/", label: "X" },
+  { icon: FaFacebookF, href: "https://facebook.com/", label: "Facebook" },
 ];
 
 const containerVariants: Variants = {
@@ -68,39 +68,23 @@ export default function Hero() {
     // bg-[#0A0A0A]: darker near-black to match the reference screenshot
     <section ref={sectionRef} id="home" className="relative h-[180vh] bg-[#0A0A0A]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Background portrait — smaller, centered, responsive padding on all sides.
-            Only the face area stays lit; everything else fades to near-black
-            so it blends seamlessly with the page's #0A0A0A background. */}
+        {/* Background portrait — transparent-background PNG, sits directly on
+            the section's solid #0A0A0A background. No dark overlay/mask needed
+            since there's no photo background left to hide; real natural lighting
+            of the subject is preserved as-is. */}
         <motion.div
           style={{ scale: bgScale }}
-          className="absolute inset-x-[10%] inset-y-[12%] sm:inset-x-[16%] sm:inset-y-[10%] lg:inset-x-[24%] lg:inset-y-[9%]
-                     overflow-hidden rounded-[2.5rem]
-                     [mask-image:radial-gradient(ellipse_85%_88%_at_50%_38%,black_60%,transparent_100%)]
-                     [-webkit-mask-image:radial-gradient(ellipse_85%_88%_at_50%_38%,black_60%,transparent_100%)]"
+          className="absolute inset-x-[10%] inset-y-[10%] sm:inset-x-[18%] sm:inset-y-[8%] lg:inset-x-[26%] lg:inset-y-[6%]"
         >
-          {/* Replace the file at /public/images/profile.png with your photo */}
+          {/* Replace the file at /public/images/profile.png with your
+              transparent-background cutout photo */}
           <Image
             src="/images/profile.png"
             alt="Omar Faruk Nahid — Full Stack Developer"
             fill
             priority
-            className="object-cover object-top"
+            className="object-contain object-bottom"
           />
-
-          {/* Base darkening so the whole frame reads close to Maxel's black theme */}
-          <div className="absolute inset-0 bg-[#0A0A0A]/75" />
-
-          {/* Spotlight: keeps the face area brighter, fades to near-black everywhere else */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 42% 32% at 50% 30%, transparent 0%, rgba(10,10,10,0.35) 45%, rgba(10,10,10,0.92) 80%, #0A0A0A 100%)",
-            }}
-          />
-
-          {/* Bottom fade so text at the base of the hero stays readable */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
         </motion.div>
 
         {/* Foreground content */}
@@ -189,6 +173,15 @@ export default function Hero() {
                   View Projects
                   <HiArrowUpRight className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
+                
+                <a
+                   href="https://docs.google.com/document/d/1wROd_zAldT-3d_HefJSvEWuClpILDDHtkUf4Fkdw4xc/export?format=pdf"
+                  className="group flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8]"
+                >
+                  Resume
+                  <HiArrowUpRight className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+
               </motion.div>
             </motion.div>
           </div>
