@@ -33,6 +33,23 @@ const itemVariants: Variants = {
   },
 };
 
+// Card er bhitorer content stagger kore ashbe
+const contentVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+  },
+};
+
+const fieldVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
+
 export default function Certifications() {
   return (
     <section id="certifications" className="relative overflow-hidden bg-[#0A0A0A] py-24 text-white lg:py-32">
@@ -48,7 +65,11 @@ export default function Certifications() {
           viewport={{ once: true, amount: 0.4 }}
           className="mb-6 flex items-center gap-3"
         >
-          <span className="h-2 w-2 rounded-full bg-[#2DD3A8]" />
+          <motion.span
+            className="h-2 w-2 rounded-full bg-[#2DD3A8]"
+            animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
             Certifications & Courses
           </span>
@@ -81,36 +102,60 @@ export default function Certifications() {
             <motion.div
               key={cert.title}
               variants={itemVariants}
-              whileHover={{ y: -4 }}
+              whileHover={{
+                y: -6,
+                boxShadow: "0 0 25px rgba(45, 211, 168, 0.12)",
+              }}
               className="group relative flex flex-col gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-md transition-colors duration-300 hover:border-[#2DD3A8]/40 sm:flex-row sm:items-start sm:p-7"
             >
               {/* Icon */}
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#2DD3A8]/30 bg-[#0A0A0A] text-[#2DD3A8] transition-colors duration-300 group-hover:bg-[#2DD3A8]/10">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: [0, -8, 8, -4, 0] }}
+                transition={{ duration: 0.5 }}
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#2DD3A8]/30 bg-[#0A0A0A] text-[#2DD3A8] transition-colors duration-300 group-hover:bg-[#2DD3A8]/10"
+              >
                 <HiOutlineDocumentCheck size={22} />
-              </div>
+              </motion.div>
 
               {/* Content */}
-              <div className="flex-1">
-                <h3 className="text-base font-bold text-white sm:text-lg">
+              <motion.div
+                variants={contentVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                className="flex-1"
+              >
+                <motion.h3
+                  variants={fieldVariants}
+                  className="text-base font-bold text-white sm:text-lg"
+                >
                   {cert.title}
-                </h3>
-                <p className="mt-1.5 text-sm font-medium text-[#2DD3A8]">
+                </motion.h3>
+                <motion.p
+                  variants={fieldVariants}
+                  className="mt-1.5 text-sm font-medium text-[#2DD3A8]"
+                >
                   {cert.platform}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-gray-400">
+                </motion.p>
+                <motion.p
+                  variants={fieldVariants}
+                  className="mt-3 text-sm leading-relaxed text-gray-400"
+                >
                   {cert.detail}
-                </p>
+                </motion.p>
 
-                <a
+                <motion.a
+                  variants={fieldVariants}
                   href={cert.link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  whileHover={{ x: 3 }}
                   className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-colors duration-200 hover:text-[#2DD3A8]"
                 >
                   Visit Program
                   <HiArrowUpRight className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-              </div>
+                </motion.a>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
