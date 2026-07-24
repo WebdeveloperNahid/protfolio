@@ -5,7 +5,7 @@ import { FaReact, FaNodeJs, FaGithub, FaHtml5, FaCss3Alt, FaLaptopCode, FaGoogle
 import { 
   SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, 
   SiExpress, SiMongodb, SiNetlify, SiVercel, SiDaisyui, SiFramer,
-  SiJsonwebtokens, SiStripe, SiGooglegemini,  SiNpm
+  SiJsonwebtokens, SiStripe, SiGooglegemini, SiNpm
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 
@@ -68,17 +68,16 @@ export default function Skills() {
     },
   ];
 
-  // Card container: right theke left e slide kore ashbe
+  // Card container variants with 'as const' to fix TypeScript errors
   const cardVariants = {
     hidden: { opacity: 0, x: 80 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: "easeOut" as const },
     },
   };
 
-  // Ei variant diye skill item gulo staggered vabe ashbe
   const listVariants = {
     hidden: {},
     visible: {
@@ -95,7 +94,7 @@ export default function Skills() {
       opacity: 1,
       x: 0,
       scale: 1,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.4, ease: "easeOut" as const },
     },
   };
 
