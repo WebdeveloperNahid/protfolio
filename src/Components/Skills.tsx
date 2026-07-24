@@ -1,11 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaReact, FaNodeJs, FaGithub, FaHtml5, FaCss3Alt, FaLaptopCode } from "react-icons/fa";
+import { FaReact, FaNodeJs, FaGithub, FaHtml5, FaCss3Alt, FaLaptopCode, FaGoogle, FaUserShield, FaExchangeAlt } from "react-icons/fa";
 import { 
   SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, 
-  SiExpress, SiMongodb, SiNetlify, SiVercel, SiDaisyui, SiFramer 
+  SiExpress, SiMongodb, SiNetlify, SiVercel, SiDaisyui, SiFramer,
+  SiJsonwebtokens, SiStripe, SiGooglegemini,  SiNpm
 } from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 
 interface Skill {
   name: string;
@@ -35,17 +37,31 @@ export default function Skills() {
       ],
     },
     {
-      title: "Backend Development",
+      title: "Backend & APIs",
       skills: [
         { name: "Node.js", icon: <FaNodeJs className="text-[#339933] text-xl sm:text-2xl" /> },
         { name: "Express.js", icon: <SiExpress className="text-white text-xl sm:text-2xl" /> },
+        { name: "REST API", icon: <FaExchangeAlt className="text-[#38BDF8] text-xl sm:text-2xl" /> },
+        { name: "Gemini API", icon: <SiGooglegemini className="text-[#8E75B2] text-xl sm:text-2xl" /> },
       ],
     },
     {
-      title: "Database & Deployment",
+      title: "Auth & Security",
+      skills: [
+        { name: "JWT Auth", icon: <SiJsonwebtokens className="text-[#D63AFF] text-xl sm:text-2xl" /> },
+        { name: "Better Auth", icon: <FaUserShield className="text-[#2DD3A8] text-xl sm:text-2xl" /> },
+        { name: "Google OAuth", icon: <FaGoogle className="text-[#EA4335] text-xl sm:text-2xl" /> },
+        { name: "RBAC", icon: <FaUserShield className="text-[#F59E0B] text-xl sm:text-2xl" /> },
+      ],
+    },
+    {
+      title: "Database, Tools & Deployment",
       skills: [
         { name: "MongoDB", icon: <SiMongodb className="text-[#47A248] text-xl sm:text-2xl" /> },
+        { name: "Stripe", icon: <SiStripe className="text-[#635BFF] text-xl sm:text-2xl" /> },
         { name: "Git & GitHub", icon: <FaGithub className="text-white text-xl sm:text-2xl" /> },
+        { name: "VS Code", icon: <VscVscode className="text-[#007ACC] text-xl sm:text-2xl" /> },
+        { name: "npm", icon: <SiNpm className="text-[#CB3837] text-xl sm:text-2xl" /> },
         { name: "Vercel", icon: <SiVercel className="text-white text-xl sm:text-2xl" /> },
         { name: "Netlify", icon: <SiNetlify className="text-[#00C7B7] text-xl sm:text-2xl" /> },
       ],
@@ -79,7 +95,7 @@ export default function Skills() {
         </div>
 
         {/* Skills Categories Grid */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 items-stretch">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 items-stretch">
           {skillCategories.map((category, idx) => (
             <motion.div 
               key={idx}

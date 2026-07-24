@@ -19,18 +19,35 @@ const containerVariants: Variants = {
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
 };
 
+// LEFT column lines: subtle slide in from the left (x: -30) + fade/rise, kept gentle
+// so it layers with the existing vertical motion instead of fighting it.
 const lineVariants: Variants = {
-  hidden: { y: 60, opacity: 0 },
+  hidden: { x: -30, y: 60, opacity: 0 },
   visible: {
+    x: 0,
     y: 0,
     opacity: 1,
     transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
+// Bottom bar (caption) — vertical only, unchanged. Kept separate from the
+// right column so the two don't share the same horizontal motion.
 const fadeUp: Variants = {
   hidden: { y: 24, opacity: 0 },
   visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
+// RIGHT column lines: mirrors lineVariants but slides in from the right (x: 30),
+// so headline and sub-content visually "meet in the middle" on load.
+const rightFadeUp: Variants = {
+  hidden: { x: 30, y: 24, opacity: 0 },
+  visible: {
+    x: 0,
     y: 0,
     opacity: 1,
     transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
@@ -95,7 +112,7 @@ export default function Hero() {
           {/* pt-24 (96px) / lg:pt-28 (112px) = navbar's 80px height + ~20px breathing room */}
 
           <div className="flex flex-1 flex-col justify-center lg:grid lg:grid-cols-2 lg:items-center lg:gap-10">
-            {/* LEFT: Headline */}
+            {/* LEFT: Headline — slides in gently from the left */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -136,7 +153,8 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            {/* RIGHT: Sub-content + CTAs — shown beside the image on large screens */}
+            {/* RIGHT: Sub-content + CTAs — slides in gently from the right,
+                so it visually "meets" the left column on load */}
             <motion.div
               variants={rightColVariants}
               initial="hidden"
@@ -144,19 +162,19 @@ export default function Hero() {
               className="mt-10 max-w-md lg:mt-0 lg:justify-self-end lg:text-right"
             >
               <motion.h2
-                variants={fadeUp}
+                variants={rightFadeUp}
                 className="text-2xl font-bold text-white sm:text-3xl"
               >
                 Design. Build. Ship.
               </motion.h2>
-              <motion.p variants={fadeUp} className="mt-4 text-sm text-gray-300 sm:text-base">
+              <motion.p variants={rightFadeUp} className="mt-4 text-sm text-gray-300 sm:text-base">
                 I design and build scalable web applications with the MERN
                 stack, Next.js and TypeScript — turning ideas into fast,
                 reliable products.
               </motion.p>
 
               <motion.div
-                variants={fadeUp}
+                variants={rightFadeUp}
                 className="mt-7 flex flex-wrap gap-3 lg:justify-end"
               >
                 <a
@@ -173,7 +191,7 @@ export default function Hero() {
                   View Projects
                   <HiArrowUpRight className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
-                
+
                 <a
                    href="https://docs.google.com/document/d/1wROd_zAldT-3d_HefJSvEWuClpILDDHtkUf4Fkdw4xc/export?format=pdf"
                   className="group flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8]"
@@ -186,7 +204,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Bottom bar — caption + social icons */}
+          {/* Bottom bar — caption + social icons (unchanged, vertical fade only) */}
           <motion.div
             initial="hidden"
             animate="visible"
