@@ -7,14 +7,18 @@ import {
   HiOutlinePhone,
   HiArrowUpRight,
   HiPaperAirplane,
+  HiCheckCircle,
 } from "react-icons/hi2";
 import { FaGithub, FaLinkedinIn, FaFacebookF, FaWhatsapp } from "react-icons/fa6";
 
 const CONTACT = {
-  email: "omarfaruk.nahid.wevdeveloper@gmail.com",
+  email: "omarfaruk.nahid.webdeveloper@gmail.com",
   phone: "01757234194",
   whatsapp: "01757234194",
 };
+
+// ⚠️ এখানে আপনার Web3Forms Access Key বসান (web3forms.com থেকে পাওয়া)
+const WEB3FORMS_ACCESS_KEY = "59c1d8ae-2549-495d-9c18-c6e4cff1fc44";
 
 const SOCIAL_LINKS = [
   { icon: FaGithub, href: "https://github.com/WebdeveloperNahid", label: "GitHub" },
@@ -57,8 +61,11 @@ const listVariants: Variants = {
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
 };
 
+type Status = "idle" | "loading" | "success" | "error";
+
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState<Status>("idle");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -66,13 +73,35 @@ export default function Contact() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${form.name || "Website Visitor"}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
-    );
-    window.location.href = `mailto:${CONTACT.email}?subject=${subject}&body=${body}`;
+    setStatus("loading");
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Portfolio Inquiry from ${form.name || "Website Visitor"}`,
+          from_name: form.name,
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -89,7 +118,11 @@ export default function Contact() {
           viewport={{ once: true, amount: 0.4 }}
           className="mb-6 flex items-center gap-3"
         >
-          <span className="h-2 w-2 rounded-full bg-[#2DD3A8]" />
+          <motion.span
+            className="h-2 w-2 rounded-full bg-[#2DD3A8]"
+            animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
             Get In Touch
           </span>
@@ -224,11 +257,39 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="group mt-2 flex items-center justify-center gap-2 rounded-full bg-[#2DD3A8] px-6 py-3.5 text-sm font-semibold text-[#0A0A0A] transition-transform duration-200 hover:scale-[1.02]"
+              disabled={status === "loading"}
+              className="group mt-2 flex items-center justify-center gap-2 rounded-full bg-[#2DD3A8] px-6 py-3.5 text-sm font-semibold text-[#0A0A0A] transition-transform duration-200 hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
             >
-              Send Message
-              <HiPaperAirplane className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              {status === "loading" ? (
+                "Sending..."
+              ) : (
+                <>
+                  Send Message
+                  <HiPaperAirplane className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </>
+              )}
             </button>
+
+            {/* Status messages */}
+            {status === "success" && (
+              <motion.p
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 text-sm font-medium text-[#2DD3A8]"
+              >
+                <HiCheckCircle size={18} />
+                Message sent successfully! I&apos;ll get back to you soon.
+              </motion.p>
+            )}
+            {status === "error" && (
+              <motion.p
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-sm font-medium text-red-400"
+              >
+                Something went wrong. Please try again or email me directly.
+              </motion.p>
+            )}
           </motion.form>
         </div>
       </div>

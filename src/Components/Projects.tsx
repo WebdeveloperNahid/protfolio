@@ -15,12 +15,30 @@ const fadeUp: Variants = {
   },
 };
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 50 },
+// Even index -> left theke, Odd index -> right theke ashbe
+const getCardVariants = (index: number): Variants => ({
+  hidden: { opacity: 0, x: index % 2 === 0 ? -60 : 60, y: 30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+  },
+});
+
+const tagContainerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.3 },
+  },
+};
+
+const tagVariants: Variants = {
+  hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.35, ease: "easeOut" },
   },
 };
 
@@ -39,7 +57,11 @@ export default function Projects() {
           viewport={{ once: true, amount: 0.4 }}
           className="mb-6 flex items-center gap-3"
         >
-          <span className="h-2 w-2 rounded-full bg-[#2DD3A8]" />
+          <motion.span
+            className="h-2 w-2 rounded-full bg-[#2DD3A8]"
+            animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
             Selected Projects
           </span>
@@ -78,15 +100,16 @@ export default function Projects() {
           {PROJECTS.map((project, index) => (
             <motion.div
               key={project.slug}
-              variants={cardVariants}
+              variants={getCardVariants(index)}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
+              whileHover={{ y: -6 }}
               className={index % 2 === 1 ? "lg:mt-16" : ""}
             >
               <Link
                 href={`/projects/${project.slug}`}
-                className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition-colors duration-300 hover:border-[#2DD3A8]/40"
+                className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition-all duration-300 hover:border-[#2DD3A8]/40 hover:shadow-[0_0_35px_rgba(45,211,168,0.12)]"
               >
                 {/* Image */}
                 <div className="relative h-64 w-full overflow-hidden sm:h-80">
@@ -94,39 +117,52 @@ export default function Projects() {
                     src={project.image}
                     alt={project.name}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/60 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-80" />
 
                   {/* Category chip */}
-                  <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0A0A0A]/70 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                  <motion.span
+                    initial={{ opacity: 0, y: -10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0A0A0A]/70 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
+                  >
                     {project.category}
-                  </span>
+                  </motion.span>
 
                   {/* Floating arrow button */}
-                  <span className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#2DD3A8] text-lg text-[#0A0A0A] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-45">
+                  <span className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#2DD3A8] text-lg text-[#0A0A0A] transition-all duration-300 group-hover:scale-110 group-hover:rotate-45 group-hover:shadow-[0_0_20px_rgba(45,211,168,0.5)]">
                     <HiArrowUpRight />
                   </span>
                 </div>
 
                 {/* Content */}
                 <div className="p-6 sm:p-7">
-                  <div className="mb-3 flex flex-wrap gap-2">
+                  <motion.div
+                    variants={tagContainerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="mb-3 flex flex-wrap gap-2"
+                  >
                     {project.tags.map((tag) => (
-                      <span
+                      <motion.span
                         key={tag}
+                        variants={tagVariants}
                         className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium text-gray-400"
                       >
                         {tag}
-                      </span>
+                      </motion.span>
                     ))}
-                  </div>
+                  </motion.div>
 
-                  <h3 className="text-xl font-bold text-white transition-colors duration-200 group-hover:text-[#2DD3A8] sm:text-2xl">
+                  <h3 className="text-xl font-bold text-white transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#2DD3A8] sm:text-2xl">
                     {project.name}
                   </h3>
 
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gray-300 transition-colors duration-200 group-hover:text-[#2DD3A8]">
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gray-300 transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#2DD3A8]">
                     View Details
                     <HiArrowUpRight size={14} />
                   </span>
