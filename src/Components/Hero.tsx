@@ -9,9 +9,9 @@ import { FaGithub, FaLinkedinIn, FaFacebookF } from "react-icons/fa6";
 const TECH_STACK = ["Next.js", "React.js", "Node.js", "Express.js", "MongoDB", "TypeScript"];
 
 const SOCIAL_LINKS = [
-  { icon: FaGithub, href: "https://github.com/", label: "GitHub" },
-  { icon: FaLinkedinIn, href: "https://linkedin.com/", label: "LinkedIn" },
-  { icon: FaFacebookF, href: "https://facebook.com/", label: "Facebook" },
+  { icon: FaGithub, href: "https://github.com/WebdeveloperNahid", label: "GitHub" },
+  { icon: FaLinkedinIn, href: "https://www.linkedin.com/in/omarfaruk-nahid", label: "LinkedIn" },
+  { icon: FaFacebookF, href: "https://www.facebook.com/omarfaruk.nahid.731385", label: "Facebook" },
 ];
 
 const containerVariants: Variants = {
