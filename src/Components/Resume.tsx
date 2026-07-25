@@ -4,6 +4,15 @@ import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { HiArrowUpRight, HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { FiEye } from "react-icons/fi";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiExpress,
+  SiTypescript,
+  SiMongodb,
+  SiFramer,
+} from "react-icons/si";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -58,6 +67,23 @@ const highlightItem: Variants = {
   },
 };
 
+const primarySkillContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.55 },
+  },
+};
+
+const primarySkillItem: Variants = {
+  hidden: { opacity: 0, y: 15, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
+
 const buttonContainer: Variants = {
   hidden: {},
   visible: {
@@ -98,6 +124,17 @@ const STACK = [
   "Express.js",
   "MongoDB",
   "Tailwind CSS",
+];
+
+// Headline skills only — full breakdown lives in the Skills section
+const PRIMARY_SKILLS = [
+  { name: "React.js", icon: SiReact, color: "#61DAFB" },
+  { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
+  { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+  { name: "Express.js", icon: SiExpress, color: "#FFFFFF" },
+  { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+  { name: "Framer Motion", icon: SiFramer, color: "#FF0055" },
 ];
 
 export default function Resume() {
@@ -175,8 +212,9 @@ export default function Resume() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
+              className="flex flex-col"
             >
-              <span className="inline-flex rounded-full border border-[#2DD3A8]/30 bg-[#2DD3A8]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[.2em] text-[#2DD3A8]">
+              <span className="inline-flex w-fit rounded-full border border-[#2DD3A8]/30 bg-[#2DD3A8]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[.2em] text-[#2DD3A8]">
                 Full Stack Developer
               </span>
 
@@ -192,7 +230,7 @@ export default function Resume() {
                 exceptional user experience.
               </p>
 
-              {/* Highlights */}
+              {/* Highlights — Core Competencies + Education snapshot */}
               <motion.div
                 variants={highlightContainer}
                 initial="hidden"
@@ -205,13 +243,17 @@ export default function Resume() {
                   whileHover={{ y: -4, borderColor: "rgba(45,211,168,0.4)" }}
                   className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors duration-300"
                 >
-                  <h4 className="mb-2 font-semibold text-white">Experience</h4>
-                  <p className="text-sm text-gray-400">
+                  <h4 className="mb-2 font-semibold text-white">
+                    Core Competencies
+                  </h4>
+                  <p className="text-sm leading-6 text-gray-400">
                     MERN Stack Development
                     <br />
-                    REST API
+                    Next.js Application Development
                     <br />
-                    Responsive UI
+                    Authentication & Authorization
+                    <br />
+                    Gemini API Integration
                   </p>
                 </motion.div>
 
@@ -220,18 +262,59 @@ export default function Resume() {
                   whileHover={{ y: -4, borderColor: "rgba(45,211,168,0.4)" }}
                   className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors duration-300"
                 >
-                  <h4 className="mb-2 font-semibold text-white">
-                    Technologies
-                  </h4>
-                  <p className="text-sm text-gray-400">
-                    React
+                  <div className="mb-2 flex items-center gap-2">
+                    <h4 className="font-semibold text-white">Education</h4>
+                    <span className="rounded-full border border-[#2DD3A8]/30 bg-[#2DD3A8]/10 px-2 py-0.5 text-[10px] font-medium text-[#2DD3A8]">
+                      Ongoing
+                    </span>
+                  </div>
+                  <p className="text-sm leading-6 text-gray-400">
+                    B.S.S (Honours) in Economics
                     <br />
-                    Next.js
+                    New Govt. Degree College, Rajshahi
                     <br />
-                    Node.js
-                    <br />
-                    MongoDB
+                    Session: 2023–2024
                   </p>
+                </motion.div>
+              </motion.div>
+
+              {/* Primary Stack - headline skills only, full breakdown lives in the Skills section */}
+              <motion.div
+                variants={highlightItem}
+                whileHover={{ borderColor: "rgba(45,211,168,0.4)" }}
+                className="mt-4 flex-1 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors duration-300 sm:p-6"
+              >
+                <div className="mb-5 flex items-center justify-between">
+                  <h4 className="font-semibold text-white">Primary Stack</h4>
+                  <span className="text-xs text-gray-500">
+                    See Skills section for full details
+                  </span>
+                </div>
+
+                <motion.div
+                  variants={primarySkillContainer}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  className="grid grid-cols-2 gap-3 sm:grid-cols-3"
+                >
+                  {PRIMARY_SKILLS.map(({ name, icon: Icon, color }) => (
+                    <motion.div
+                      key={name}
+                      variants={primarySkillItem}
+                      whileHover={{
+                        y: -3,
+                        borderColor: "rgba(45,211,168,0.5)",
+                        backgroundColor: "rgba(45,211,168,0.05)",
+                      }}
+                      className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.02] px-3.5 py-3 transition-colors"
+                    >
+                      <Icon size={18} style={{ color }} className="shrink-0" />
+                      <span className="text-xs font-semibold text-white sm:text-sm">
+                        {name}
+                      </span>
+                    </motion.div>
+                  ))}
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -257,21 +340,19 @@ export default function Resume() {
                   />
                 </div>
 
-                {/* Centered Profile Photo — square frame, always-on animated ring */}
-                <div className="relative mx-auto h-24 w-24 sm:h-28 sm:w-28">
-                  {/* Rotating glow ring behind photo - continuous */}
+                {/* Centered Profile Photo — always-on continuous animation */}
+                <div className="relative mx-auto h-48 w-48 sm:h-56 sm:w-56">
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                    className="absolute -inset-1.5 rounded-2xl"
+                    className="absolute -inset-2 rounded-2xl"
                     style={{
                       background:
                         "conic-gradient(from 0deg, #2DD3A8, transparent 30%, transparent 70%, #2DD3A8)",
                     }}
                   />
-                  {/* Breathing scale wrapper */}
                   <motion.div
-                    animate={{ scale: [1, 1.04, 1] }}
+                    animate={{ scale: [1, 1.03, 1] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     className="relative h-full w-full overflow-hidden rounded-2xl border-2 border-[#0A0A0A] bg-[#0A0A0A]"
                   >
@@ -285,7 +366,7 @@ export default function Resume() {
                 </div>
 
                 {/* Centered Name + Role */}
-                <div className="mt-4 text-center">
+                <div className="mt-5 text-center">
                   <h4 className="text-lg font-extrabold text-white sm:text-xl">
                     Omar Faruk Nahid
                   </h4>
@@ -327,7 +408,7 @@ export default function Resume() {
                 </div>
               </div>
 
-              {/* CTA Buttons — pushed to bottom via justify-between on parent */}
+              {/* CTA Buttons */}
               <motion.div
                 variants={buttonContainer}
                 initial="hidden"
