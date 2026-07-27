@@ -12,6 +12,7 @@ import {
   SiTypescript,
   SiMongodb,
   SiFramer,
+  SiJavascript,
 } from "react-icons/si";
 
 const fadeUp: Variants = {
@@ -128,10 +129,12 @@ const STACK = [
 
 // Headline skills only — full breakdown lives in the Skills section
 const PRIMARY_SKILLS = [
+  
   { name: "React.js", icon: SiReact, color: "#61DAFB" },
   { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
   { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
   { name: "Express.js", icon: SiExpress, color: "#FFFFFF" },
+  { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
   { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
   { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
   { name: "Framer Motion", icon: SiFramer, color: "#FF0055" },
@@ -418,7 +421,7 @@ export default function Resume() {
               >
                 <motion.a
                   variants={buttonItem}
-                  href="https://docs.google.com/document/d/1wROd_zAldT-3d_HefJSvEWuClpILDDHtkUf4Fkdw4xc/view?usp=sharing"
+                  href="https://docs.google.com/document/d/1EbHVMgPrHmiZM9r8hguX7zfU43oUh0dBOaaos0YsdZc/edit?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
@@ -432,7 +435,9 @@ export default function Resume() {
 
                 <motion.a
                   variants={buttonItem}
-                  href="https://docs.google.com/document/d/1wROd_zAldT-3d_HefJSvEWuClpILDDHtkUf4Fkdw4xc/export?format=pdf"
+                  href="https://docs.google.com/document/d/1EbHVMgPrHmiZM9r8hguX7zfU43oUh0dBOaaos0YsdZc/export?format=pdf"
+
+                 
                   download
                   whileHover={{ scale: 1.03, boxShadow: "0 0 25px rgba(45,211,168,0.4)" }}
                   whileTap={{ scale: 0.98 }}
