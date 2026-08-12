@@ -193,7 +193,8 @@ export default function Hero() {
                 </a>
 
                 <a
-                   href="https://docs.google.com/document/d/1wROd_zAldT-3d_HefJSvEWuClpILDDHtkUf4Fkdw4xc/export?format=pdf"
+                  
+                   href="https://docs.google.com/document/d/1EbHVMgPrHmiZM9r8hguX7zfU43oUh0dBOaaos0YsdZc/export?format=pdf"
                   className="group flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8]"
                 >
                   Resume
