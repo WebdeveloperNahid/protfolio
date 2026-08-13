@@ -421,7 +421,7 @@ export default function Resume() {
               >
                 <motion.a
                   variants={buttonItem}
-                  href="https://docs.google.com/document/d/1EbHVMgPrHmiZM9r8hguX7zfU43oUh0dBOaaos0YsdZc/edit?usp=sharing"
+                  href="https://drive.google.com/file/d/19ndAv7AV0B5CP54uOkR1dSQ-pNcwajl6/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
