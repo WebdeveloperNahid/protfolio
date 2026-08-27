@@ -48,7 +48,11 @@ const rightVariants: Variants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const, delay: 0.15 },
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1] as const,
+      delay: 0.15,
+    },
   },
 };
 
@@ -129,7 +133,6 @@ const STACK = [
 
 // Headline skills only — full breakdown lives in the Skills section
 const PRIMARY_SKILLS = [
-  
   { name: "React.js", icon: SiReact, color: "#61DAFB" },
   { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
   { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
@@ -338,7 +341,11 @@ export default function Resume() {
                   </span>
                   <motion.div
                     animate={{ scale: [1, 1.3, 1], opacity: [1, 0.7, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                     className="h-3 w-3 rounded-full bg-[#2DD3A8] shadow-[0_0_20px_#2DD3A8]"
                   />
                 </div>
@@ -347,7 +354,11 @@ export default function Resume() {
                 <div className="relative mx-auto h-48 w-48 sm:h-56 sm:w-56">
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                     className="absolute -inset-2 rounded-2xl"
                     style={{
                       background:
@@ -356,7 +367,11 @@ export default function Resume() {
                   />
                   <motion.div
                     animate={{ scale: [1, 1.03, 1] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                     className="relative h-full w-full overflow-hidden rounded-2xl border-2 border-[#0A0A0A] bg-[#0A0A0A]"
                   >
                     <Image
@@ -421,7 +436,7 @@ export default function Resume() {
               >
                 <motion.a
                   variants={buttonItem}
-                  href="https://drive.google.com/file/d/19ndAv7AV0B5CP54uOkR1dSQ-pNcwajl6/view?usp=sharing"
+                  href="https://drive.google.com/file/d/11gI9pjyVEeoE005Cl67IfHy-VUStRwE1/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
@@ -435,11 +450,12 @@ export default function Resume() {
 
                 <motion.a
                   variants={buttonItem}
-                  href="https://docs.google.com/document/d/1EbHVMgPrHmiZM9r8hguX7zfU43oUh0dBOaaos0YsdZc/export?format=pdf"
-
-                 
-                  download
-                  whileHover={{ scale: 1.03, boxShadow: "0 0 25px rgba(45,211,168,0.4)" }}
+                  href="https://drive.google.com/uc?export=download&id=11gI9pjyVEeoE005Cl67IfHy-VUStRwE1"
+                  download="Resume.pdf"
+                  whileHover={{
+                    scale: 1.03,
+                    boxShadow: "0 0 25px rgba(45,211,168,0.4)",
+                  }}
                   whileTap={{ scale: 0.98 }}
                   className="group flex items-center justify-center gap-3 rounded-full bg-[#2DD3A8] px-6 py-4 font-semibold text-[#0A0A0A] transition-all duration-300"
                 >
