@@ -6,7 +6,16 @@ import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { HiArrowUpRight } from "react-icons/hi2";
 import { FaGithub, FaLinkedinIn, FaFacebookF } from "react-icons/fa6";
 
-const TECH_STACK = ["Next.js", "React.js", "Node.js", "Express.js", "MongoDB", "TypeScript"];
+const TECH_STACK = [
+  "Next.js",
+  "React.js",
+  "TypeScript",
+  "Node.js",
+  "Express.js",
+  "MongoDB",
+  "PostgreSQL",
+  "Prisma ORM",
+];
 
 const SOCIAL_LINKS = [
   { icon: FaGithub, href: "https://github.com/WebdeveloperNahid", label: "GitHub" },
@@ -19,8 +28,7 @@ const containerVariants: Variants = {
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
 };
 
-// LEFT column lines: subtle slide in from the left (x: -30) + fade/rise, kept gentle
-// so it layers with the existing vertical motion instead of fighting it.
+// LEFT column lines: subtle slide in from the left (x: -30) + fade/rise.
 const lineVariants: Variants = {
   hidden: { x: -30, y: 60, opacity: 0 },
   visible: {
@@ -31,8 +39,7 @@ const lineVariants: Variants = {
   },
 };
 
-// Bottom bar (caption) — vertical only, unchanged. Kept separate from the
-// right column so the two don't share the same horizontal motion.
+// Bottom bar (caption) — vertical only.
 const fadeUp: Variants = {
   hidden: { y: 24, opacity: 0 },
   visible: {
@@ -42,8 +49,6 @@ const fadeUp: Variants = {
   },
 };
 
-// RIGHT column lines: mirrors lineVariants but slides in from the right (x: 30),
-// so headline and sub-content visually "meet in the middle" on load.
 const rightFadeUp: Variants = {
   hidden: { x: 30, y: 24, opacity: 0 },
   visible: {
@@ -69,6 +74,17 @@ const socialItemVariants: Variants = {
   visible: { opacity: 1, scale: 1 },
 };
 
+// Photo frame: fades/scales in, then holds a slow, gentle float.
+const frameVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.92, y: 40 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const, delay: 0.35 },
+  },
+};
+
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -79,104 +95,75 @@ export default function Hero() {
 
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -140]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const frameY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   return (
-    // bg-[#0A0A0A]: darker near-black to match the reference screenshot
-    <section ref={sectionRef} id="home" className="relative h-[180vh] bg-[#0A0A0A]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Background portrait — transparent-background PNG, sits directly on
-            the section's solid #0A0A0A background. No dark overlay/mask needed
-            since there's no photo background left to hide; real natural lighting
-            of the subject is preserved as-is. */}
-        <motion.div
-          style={{ scale: bgScale }}
-          className="absolute inset-x-[10%] inset-y-[10%] sm:inset-x-[18%] sm:inset-y-[8%] lg:inset-x-[26%] lg:inset-y-[6%]"
-        >
-          {/* Replace the file at /public/images/profile.png with your
-              transparent-background cutout photo */}
-          <Image
-            src="/images/profile.png"
-            alt="Omar Faruk Nahid — Full Stack Developer"
-            fill
-            priority
-            className="object-contain object-bottom"
-          />
-        </motion.div>
+    <section
+      ref={sectionRef}
+      id="home"
+      className="relative overflow-hidden bg-[#0A0A0A] lg:h-[180vh]"
+    >
+      <div className="relative min-h-screen w-full overflow-hidden lg:sticky lg:top-0 lg:h-screen">
+        {/* Ambient background glow — quiet, not a competing element */}
+        <div className="pointer-events-none absolute -top-40 right-0 h-[560px] w-[560px] rounded-full bg-[#2DD3A8]/10 blur-[140px]" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-[420px] w-[420px] rounded-full bg-[#2DD3A8]/5 blur-[120px]" />
 
-        {/* Foreground content */}
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-6 pt-24 lg:px-10 lg:pt-28"
+          className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-6 pb-8 pt-20 lg:px-10 lg:pb-0 lg:pt-28"
         >
-          {/* pt-24 (96px) / lg:pt-28 (112px) = navbar's 80px height + ~20px breathing room */}
-
-          <div className="flex flex-1 flex-col justify-center lg:grid lg:grid-cols-2 lg:items-center lg:gap-10">
-            {/* LEFT: Headline — slides in gently from the left */}
+          <div className="grid flex-1 grid-cols-1 items-center gap-8 py-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:py-0">
+            {/* LEFT: Headline */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="max-w-xl"
+              className="order-2 max-w-xl lg:order-1"
             >
               <motion.span
                 variants={lineVariants}
-                className="mb-5 inline-block rounded-full border border-[#2DD3A8]/30 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-[#2DD3A8]"
+                className="mb-5 inline-block rounded-full border border-[#2DD3A8]/30 px-4 py-1.5 text-xs font-medium tracking-wide text-[#2DD3A8]"
               >
                 Full Stack Developer
               </motion.span>
 
-              <h1 className="text-[13vw] font-extrabold leading-[0.95] text-white sm:text-[9vw] lg:text-[4.4vw]">
+              <h1 className="text-[9vw] font-extrabold leading-[1.08] text-white sm:text-[7vw] lg:text-[3.4vw]">
+                <motion.span variants={lineVariants} className="block text-[#E8EAED]">
+                  Hi, I&apos;m
+                </motion.span>
                 <motion.span variants={lineVariants} className="block">
-                  Crafting
+                  Omar Faruk Nahid
                 </motion.span>
                 <motion.span
                   variants={lineVariants}
-                  className="block text-transparent [-webkit-text-stroke:2px_#2DD3A8]"
+                  className="block text-transparent [-webkit-text-stroke:1.5px_#2DD3A8] lg:text-[2.6vw]"
                 >
-                  Full-Stack
-                </motion.span>
-                <motion.span variants={lineVariants} className="block">
-                  Experiences
+                  Next.js &amp; MERN Stack Developer
                 </motion.span>
               </h1>
 
-              <motion.div variants={lineVariants} className="mt-7 flex flex-wrap gap-2">
+              <motion.p
+                variants={lineVariants}
+                className="mt-6 max-w-md text-[15px] leading-relaxed text-[#D7DADF] sm:text-base"
+              >
+                I build full-stack web apps with Next.js, React and Node.js —
+                from MongoDB and PostgreSQL on the data layer to secure auth
+                and payments — and use TypeScript throughout for code that
+                stays reliable as it grows.
+              </motion.p>
+
+              <motion.div variants={lineVariants} className="mt-7 flex flex-wrap gap-2.5">
                 {TECH_STACK.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-gray-300 backdrop-blur-sm"
+                    className="rounded-xl border border-white/15 bg-white/[0.06] px-4 py-2 text-sm font-medium text-[#F1F3F5] shadow-[0_2px_10px_rgba(0,0,0,0.25)] transition-colors duration-200 hover:border-[#2DD3A8]/50 hover:text-[#2DD3A8]"
                   >
                     {tech}
                   </span>
                 ))}
               </motion.div>
-            </motion.div>
 
-            {/* RIGHT: Sub-content + CTAs — slides in gently from the right,
-                so it visually "meets" the left column on load */}
-            <motion.div
-              variants={rightColVariants}
-              initial="hidden"
-              animate="visible"
-              className="mt-10 max-w-md lg:mt-0 lg:justify-self-end lg:text-right"
-            >
-              <motion.h2
-                variants={rightFadeUp}
-                className="text-2xl font-bold text-white sm:text-3xl"
-              >
-                Design. Build. Ship.
-              </motion.h2>
-              <motion.p variants={rightFadeUp} className="mt-4 text-sm text-gray-300 sm:text-base">
-                I design and build scalable web applications with the MERN
-                stack, Next.js and TypeScript — turning ideas into fast,
-                reliable products.
-              </motion.p>
-
-              <motion.div
-                variants={rightFadeUp}
-                className="mt-7 flex flex-wrap gap-3 lg:justify-end"
-              >
+              <motion.div variants={lineVariants} className="mt-8 flex flex-wrap gap-3">
                 <a
                   href="#contact"
                   className="group flex items-center gap-2 rounded-full bg-[#2DD3A8] px-6 py-3 text-sm font-semibold text-[#0A0A0A] transition-transform duration-200 hover:scale-[1.03]"
@@ -191,28 +178,80 @@ export default function Hero() {
                   View Projects
                   <HiArrowUpRight className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
-
                 <a
-                  
-                   href="https://drive.google.com/uc?export=download&id=1YmS1d4xV3B-aF0z2UiG3Q5cvUUgME6Y0"
+                  href="https://drive.google.com/uc?export=download&id=1YmS1d4xV3B-aF0z2UiG3Q5cvUUgME6Y0"
                   className="group flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8]"
                 >
                   Resume
                   <HiArrowUpRight className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
-
               </motion.div>
+            </motion.div>
+
+            {/* RIGHT: Framed profile photo — square-cornered frame, not a circle,
+                not a full-bleed background. Sits beside the text on desktop,
+                stacks above it on mobile (order-1). */}
+            <motion.div
+              style={{ y: frameY }}
+              variants={frameVariants}
+              initial="hidden"
+              animate="visible"
+              className="order-1 mx-auto w-full max-w-[240px] sm:max-w-[340px] lg:order-2 lg:mx-0 lg:ml-auto lg:max-w-[420px]"
+            >
+              <div className="relative aspect-[4/5] w-full">
+                {/* Frame body — static border, glow comes from the ambient
+                    background blobs behind it, not from a moving ring. */}
+                <div className="absolute inset-0 overflow-hidden rounded-[28px] border border-white/10 bg-[#0A0A0A] shadow-[0_30px_80px_-20px_rgba(45,211,168,0.25)]">
+                  {/* Replace /public/images/profile-new.png with the uploaded photo.
+                      The image itself breathes gently — slow scale in/out —
+                      instead of an outer moving frame. */}
+                  <motion.div
+                    animate={{ scale: [1, 1.06, 1] }}
+                    transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src="/images/omar.png"
+                      alt="Omar Faruk Nahid — Full Stack Developer"
+                      fill
+                      priority
+                      className="object-cover object-top"
+                    />
+                  </motion.div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/70 via-transparent to-transparent" />
+                </div>
+
+                {/* Floating chip: remote availability */}
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
+                  className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-2xl border border-white/10 bg-[#101312]/90 px-3 py-2 text-[11px] font-medium text-[#E8EAED] shadow-lg backdrop-blur-md sm:-bottom-5 sm:px-4 sm:py-2.5 sm:text-xs"
+                >
+                  <span className="h-2 w-2 rounded-full bg-[#2DD3A8]" />
+                  Open to remote opportunities
+                </motion.div>
+
+                {/* Floating chip: freelance availability */}
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.6 }}
+                  className="absolute -right-2 -top-3 flex items-center gap-2 whitespace-nowrap rounded-2xl border border-white/10 bg-[#101312]/90 px-3 py-2 text-[11px] font-medium text-[#E8EAED] shadow-lg backdrop-blur-md sm:-right-4 sm:-top-4 sm:px-4 sm:py-2.5 sm:text-xs"
+                >
+                  <span className="h-2 w-2 rounded-full bg-[#2DD3A8]" />
+                  Available for freelance
+                </motion.div>
+              </div>
             </motion.div>
           </div>
 
-          {/* Bottom bar — caption + social icons (unchanged, vertical fade only) */}
+          {/* Bottom bar — caption + social icons */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            className="flex flex-col gap-6 pb-12 sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col gap-6 pb-12 pt-6 sm:flex-row sm:items-center sm:justify-between"
           >
-            <p className="text-sm font-medium text-gray-300">
+            <p className="text-sm font-medium text-[#C7CBD1]">
               Omar Faruk Nahid{" "}
               <span className="text-[#2DD3A8]">— Full Stack Developer</span>
             </p>
@@ -232,7 +271,7 @@ export default function Hero() {
                   aria-label={label}
                   variants={socialItemVariants}
                   transition={{ duration: 0.4, ease: "backOut" }}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 text-gray-300 backdrop-blur-sm transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8]"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 text-[#C7CBD1] backdrop-blur-sm transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8]"
                 >
                   <Icon size={16} />
                 </motion.a>

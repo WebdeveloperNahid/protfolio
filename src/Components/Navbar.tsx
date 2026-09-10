@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiArrowUpRight } from "react-icons/hi2";
 import { HiMenu, HiX } from "react-icons/hi";
+import ThemeToggle from "./Theme-toggle";
+
 // import { HiMenu, HiX, HiArrowUpRight } from "react-icons/hi2";
 
 const NAV_LINKS = [
@@ -49,14 +51,14 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className={`fixed top-0 left-0 z-50 h-20 w-full transition-colors duration-300 ${
           scrolled
-            ? "bg-[#141414]/80 backdrop-blur-xl border-b border-white/5"
+            ? "bg-white/80 dark:bg-[#141414]/80 backdrop-blur-xl border-b border-black/5 dark:border-white/5"
             : "bg-transparent"
         }`}
       >
         <nav className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-10">
           {/* Logo */}
           <a href="#home" className="flex flex-col leading-none">
-            <span className="text-2xl font-extrabold tracking-tight text-white">
+            <span className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white">
               Na<span className="text-[#2DD3A8]">hid</span>
             </span>
             <span className="mt-0.5 text-[10px] uppercase tracking-[0.25em] text-gray-500">
@@ -73,8 +75,8 @@ export default function Navbar() {
                   onClick={() => handleLinkClick(link.href)}
                   className={`text-sm font-medium transition-colors duration-200 ${
                     activeLink === link.href
-                      ? "text-white"
-                      : "text-gray-400 hover:text-white"
+                      ? "text-gray-900 dark:text-white"
+                      : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   }`}
                 >
                   {link.label}
@@ -91,7 +93,10 @@ export default function Navbar() {
           </ul>
 
           {/* Right side */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
+            {/* Theme toggle — visible on all sizes */}
+            <ThemeToggle />
+
             {/* Hire Me — visible on all sizes */}
             <a
               href="#contact"
@@ -108,7 +113,7 @@ export default function Navbar() {
             <button
               aria-label="Open menu"
               onClick={() => setSidebarOpen(true)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-xl text-white transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8] lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-xl text-gray-900 transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8] dark:border-white/10 dark:text-white lg:hidden"
             >
               <HiMenu />
             </button>
@@ -133,19 +138,22 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "tween", duration: 0.4, ease: "easeInOut" }}
-              className="fixed left-0 top-0 z-50 h-screen w-[85%] max-w-sm bg-[#141414] px-8 py-8 sm:w-[380px] lg:hidden"
+              className="fixed left-0 top-0 z-50 h-screen w-[85%] max-w-sm bg-white px-8 py-8 dark:bg-[#141414] sm:w-[380px] lg:hidden"
             >
               <div className="mb-14 flex items-center justify-between">
-                <span className="text-2xl font-extrabold text-white">
+                <span className="text-2xl font-extrabold text-gray-900 dark:text-white">
                   Na<span className="text-[#2DD3A8]">hid</span>
                 </span>
-                <button
-                  aria-label="Close menu"
-                  onClick={() => setSidebarOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-lg text-white hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8]"
-                >
-                  <HiX />
-                </button>
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <button
+                    aria-label="Close menu"
+                    onClick={() => setSidebarOpen(false)}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-lg text-gray-900 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8] dark:border-white/10 dark:text-white"
+                  >
+                    <HiX />
+                  </button>
+                </div>
               </div>
 
               <ul className="flex flex-col gap-2">
@@ -159,7 +167,7 @@ export default function Navbar() {
                     <a
                       href={link.href}
                       onClick={() => handleLinkClick(link.href)}
-                      className="group flex items-center justify-between border-b border-white/5 py-4 text-lg font-semibold text-gray-300 transition-colors duration-200 hover:text-[#2DD3A8]"
+                      className="group flex items-center justify-between border-b border-black/5 py-4 text-lg font-semibold text-gray-600 transition-colors duration-200 hover:text-[#2DD3A8] dark:border-white/5 dark:text-gray-300"
                     >
                       {link.label}
                       <HiArrowUpRight className="opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
