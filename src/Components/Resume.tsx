@@ -436,7 +436,7 @@ export default function Resume() {
               >
                 <motion.a
                   variants={buttonItem}
-                  href="https://drive.google.com/file/d/11gI9pjyVEeoE005Cl67IfHy-VUStRwE1/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1YmS1d4xV3B-aF0z2UiG3Q5cvUUgME6Y0/view?usp=sharing "
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
@@ -450,7 +450,7 @@ export default function Resume() {
 
                 <motion.a
                   variants={buttonItem}
-                  href="https://drive.google.com/uc?export=download&id=11gI9pjyVEeoE005Cl67IfHy-VUStRwE1"
+                  href="https://drive.google.com/uc?export=download&id=1YmS1d4xV3B-aF0z2UiG3Q5cvUUgME6Y0"
                   download="Resume.pdf"
                   whileHover={{
                     scale: 1.03,
