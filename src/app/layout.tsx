@@ -5,6 +5,7 @@ import Navbar from "@/Components/Navbar";
 import CustomCursor from "@/Components/CustomCursor";
 import Footer from "@/Components/Footer";
 import { ThemeProvider } from "next-themes";
+import SmoothScroll from "@/Components/Smoothscroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,11 +35,17 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <CustomCursor />
-          <Navbar />
-          {children}
-          <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+        >
+          <SmoothScroll>
+            <CustomCursor />
+            <Navbar />
+            {children}
+            <Footer />
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>
