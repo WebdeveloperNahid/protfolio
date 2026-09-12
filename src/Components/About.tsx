@@ -1,49 +1,44 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaLaptopCode, FaRocket, FaMotorcycle, FaHeart } from "react-icons/fa";
+import { FaLaptopCode, FaRocket, FaMotorcycle } from "react-icons/fa";
 
 const ABOUT_CARDS = [
   {
     icon: FaLaptopCode,
     title: "Full Stack Development",
-    desc: "I feel equally comfortable working across both Frontend and Backend. I love building fast, responsive, scalable, and user-friendly web applications. Writing clean code, creating reusable components, and ensuring an exceptional user experience are my highest priorities.",
+    desc: "Comfortable across the stack — from responsive, accessible frontends to secure, scalable backends. Clean code and a smooth user experience are always the goal.",
   },
   {
     icon: FaRocket,
     title: "Continuous Learning",
-    desc: "I believe a developer's learning never stops. Therefore, I treat every project as a fresh opportunity to grow. Mastering new technologies, solving complex problems, and sharpening my skills every single day is my core drive.",
+    desc: "Every project is a chance to grow. I stay current with modern tools and enjoy solving complex, real-world problems.",
   },
   {
     icon: FaMotorcycle,
-    title: "Beyond Coding",
-    desc: "Outside of programming, I love exploring new places, going on long bike rides, and immersing myself in nature. Fresh experiences help me think creatively and approach my work with renewed energy.",
-  },
-  {
-    icon: FaHeart,
-    title: "Values & Impact",
-    desc: "I believe technology can make human lives simpler and better. I aim to build software that solves meaningful problems while staying eager to support underprivileged and helpless people whenever possible, believing small acts of kindness create true societal value.",
+    title: "Beyond the Code",
+    desc: "Outside of programming, I explore new places and go on long bike rides — it keeps my thinking fresh and creative.",
   },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="relative bg-[#0A0A0A] py-24 text-white lg:py-32">
+    <section
+      id="about"
+      className="relative bg-white py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        
-        {/* Section Header - Maxel Style */}
+        {/* Section Header */}
         <div className="mb-12 flex items-center gap-3">
           <span className="h-2 w-2 rounded-full bg-[#2DD3A8]" />
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400">
             About Me
           </span>
         </div>
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16 items-start">
-          
-          {/* Left Column: Balanced Typography & Main Intro — slides in gently from the left,
-              matching the Hero headline's entrance so the site feels consistent */}
+          {/* Left Column: Intro */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -52,20 +47,22 @@ export default function About() {
             className="lg:col-span-6 lg:sticky lg:top-32"
           >
             <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl leading-[1.15]">
-              Driven by a Passion for Code & <br />
+              Driven by Code &amp; <br />
               <span className="text-transparent [-webkit-text-stroke:2px_#2DD3A8]">
-                Global Remote Opportunities.
+                Global Remote Ambitions.
               </span>
             </h2>
-            
-            <p className="mt-6 text-gray-400 text-sm sm:text-base leading-relaxed">
-              My programming journey started from a deep curiosity about technology and a childhood dream of becoming a software engineer. Through continuous learning, building real-world projects, and exploring modern tech stacks, I am carving my path as a Full Stack Web Developer. I currently work with Next.js, React, TypeScript, Modern JavaScript (ES6+), Express.js, Node.js, and MongoDB. My ultimate motivation is to learn, improve, and build effective solutions for real-world challenges as I target global remote opportunities.
+
+            <p className="mt-6 text-[15px] leading-relaxed text-gray-600 dark:text-gray-400 sm:text-base">
+              My curiosity for technology grew into a career path as a Full
+              Stack Web Developer. I build with Next.js, React, TypeScript,
+              Node.js and Express — backed by MongoDB and PostgreSQL on the
+              data layer — and I&apos;m aiming to bring that stack to global
+              remote teams.
             </p>
           </motion.div>
 
-          {/* Right Column: Cards — each slides in gently from the right with a
-              small stagger delay, and gets the same hover treatment as the
-              Skills cards (scale + bg lighten) for a consistent feel */}
+          {/* Right Column: Cards */}
           <div className="lg:col-span-6 space-y-4">
             {ABOUT_CARDS.map(({ icon: Icon, title, desc }, idx) => (
               <motion.div
@@ -74,11 +71,10 @@ export default function About() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 viewport={{ once: true, amount: 0.3 }}
-                whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.05)" }}
                 whileTap={{ scale: 0.99 }}
-                className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-sm transition-colors hover:border-[#2DD3A8]/50"
+                className="group rounded-2xl border border-black/10 bg-black/[0.02] p-6 backdrop-blur-sm transition-colors hover:border-[#2DD3A8]/50 hover:bg-black/[0.04] dark:border-white/10 dark:bg-white/[0.02] dark:hover:bg-white/[0.05]"
               >
-                <div className="flex items-center gap-3 mb-3">
+                <div className="mb-3 flex items-center gap-3">
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
@@ -86,15 +82,16 @@ export default function About() {
                   >
                     <Icon size={18} />
                   </motion.div>
-                  <h3 className="text-lg font-bold text-white">{title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                    {title}
+                  </h3>
                 </div>
-                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                <p className="text-[13px] leading-relaxed text-gray-600 dark:text-gray-300 sm:text-sm">
                   {desc}
                 </p>
               </motion.div>
             ))}
           </div>
-
         </div>
       </div>
     </section>
