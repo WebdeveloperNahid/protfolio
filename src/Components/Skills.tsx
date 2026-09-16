@@ -32,6 +32,7 @@ import {
   SiNpm,
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
+import GridBackground from "./Gridbackground";
 
 const ACCENT = "#2DD3A8";
 
@@ -131,6 +132,7 @@ export default function Skills() {
       id="skills"
       className="relative overflow-hidden bg-white py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
     >
+       <GridBackground opacity={0.02} darkOpacity={0.04} size={64} />
       <div className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2DD3A8]/[0.06] blur-[150px] dark:bg-[#2DD3A8]/5" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
