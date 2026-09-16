@@ -11,6 +11,7 @@ import {
   FaGoogle,
   FaUserShield,
   FaExchangeAlt,
+  FaBolt,
 } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -29,9 +30,10 @@ import {
   SiStripe,
   SiGooglegemini,
   SiNpm,
-  SiPostman,
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
+
+const ACCENT = "#2DD3A8";
 
 interface Skill {
   name: string;
@@ -40,7 +42,6 @@ interface Skill {
 
 interface SkillCategory {
   title: string;
-  accent: string; // hex color unique to this category
   skills: Skill[];
 }
 
@@ -48,7 +49,6 @@ export default function Skills() {
   const skillCategories: SkillCategory[] = [
     {
       title: "Frontend & UI Libraries",
-      accent: "#38BDF8",
       skills: [
         { name: "Next.js", icon: <SiNextdotjs className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
         { name: "React.js", icon: <FaReact className="text-xl text-[#61DAFB] sm:text-2xl" /> },
@@ -64,7 +64,6 @@ export default function Skills() {
     },
     {
       title: "Backend & APIs",
-      accent: "#2DD3A8",
       skills: [
         { name: "Node.js", icon: <FaNodeJs className="text-xl text-[#339933] sm:text-2xl" /> },
         { name: "Express.js", icon: <SiExpress className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
@@ -74,17 +73,15 @@ export default function Skills() {
     },
     {
       title: "Auth & Security",
-      accent: "#A78BFA",
       skills: [
         { name: "JWT Auth", icon: <SiJsonwebtokens className="text-xl text-[#D63AFF] sm:text-2xl" /> },
-        { name: "Better Auth", icon: <FaUserShield className="text-xl text-[#2DD3A8] sm:text-2xl" /> },
+        { name: "Better Auth", icon: <FaUserShield className="text-xl text-[#0E9F6E] sm:text-2xl" /> },
         { name: "Google OAuth", icon: <FaGoogle className="text-xl text-[#EA4335] sm:text-2xl" /> },
         { name: "RBAC", icon: <FaUserShield className="text-xl text-[#F59E0B] sm:text-2xl" /> },
       ],
     },
     {
       title: "Database, Tools & Deployment",
-      accent: "#F5A524",
       skills: [
         { name: "MongoDB", icon: <SiMongodb className="text-xl text-[#47A248] sm:text-2xl" /> },
         { name: "PostgreSQL", icon: <SiPostgresql className="text-xl text-[#4169E1] sm:text-2xl" /> },
@@ -92,7 +89,7 @@ export default function Skills() {
         { name: "Stripe", icon: <SiStripe className="text-xl text-[#635BFF] sm:text-2xl" /> },
         { name: "Git & GitHub", icon: <FaGithub className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
         { name: "VS Code", icon: <VscVscode className="text-xl text-[#007ACC] sm:text-2xl" /> },
-        { name: "Postman", icon: <SiPostman className="text-xl text-[#FF6C37] sm:text-2xl" /> },
+        { name: "Thunder Client", icon: <FaBolt className="text-xl text-[#FF8C00] sm:text-2xl" /> },
         { name: "npm", icon: <SiNpm className="text-xl text-[#CB3837] sm:text-2xl" /> },
         { name: "Vercel", icon: <SiVercel className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
         { name: "Netlify", icon: <SiNetlify className="text-xl text-[#00C7B7] sm:text-2xl" /> },
@@ -120,13 +117,12 @@ export default function Skills() {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: 20, scale: 0.85, rotate: -4 },
+    hidden: { opacity: 0, x: 20, scale: 0.9 },
     visible: {
       opacity: 1,
       x: 0,
       scale: 1,
-      rotate: 0,
-      transition: { type: "spring" as const, stiffness: 260, damping: 20 },
+      transition: { type: "spring" as const, stiffness: 260, damping: 22 },
     },
   };
 
@@ -135,7 +131,6 @@ export default function Skills() {
       id="skills"
       className="relative overflow-hidden bg-white py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
     >
-      {/* Background Soft Glow - Safe Position */}
       <div className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2DD3A8]/[0.06] blur-[150px] dark:bg-[#2DD3A8]/5" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
@@ -155,8 +150,6 @@ export default function Skills() {
         <div className="mb-16">
           <h2 className="text-3xl font-extrabold leading-[1.25] tracking-tight sm:text-4xl lg:text-5xl">
             Technologies &amp; <br />
-            {/* Light mode: solid fill (an outline was low-contrast on white).
-                Dark mode: original transparent + stroke outline. */}
             <span className="text-[#0F8F6E] dark:text-transparent sm:dark:[-webkit-text-stroke:2px_#2DD3A8] dark:[-webkit-text-stroke:1.5px_#2DD3A8]">
               Development Stack.
             </span>
@@ -174,42 +167,22 @@ export default function Skills() {
               transition={{ delay: idx * 0.15 }}
               viewport={{ once: true, amount: 0.2 }}
               whileHover={{
-                y: -6,
-                rotateX: 1.5,
-                rotateY: -1.5,
-                boxShadow: `0 20px 45px -15px ${category.accent}55`,
+                y: -5,
+                boxShadow: "0 20px 40px -18px rgba(45, 211, 168, 0.3)",
               }}
-              style={{
-                transformPerspective: 1000,
-                borderColor: `${category.accent}40`,
-                // Default resting background carries only a faint tint —
-                // kept subtle so it never competes with the text on top.
-                backgroundColor: `${category.accent}05`,
-              }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 shadow-xl backdrop-blur-md transition-colors duration-300 sm:p-8"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-black/10 bg-black/[0.015] p-6 shadow-xl backdrop-blur-md transition-colors duration-300 hover:border-[#2DD3A8]/40 dark:border-white/10 dark:bg-white/[0.02] sm:p-8"
             >
-              {/* Top accent bar — always visible at rest, brightens on hover */}
+              {/* Top accent bar — one consistent brand color, quiet by
+                  default, brightens on hover */}
               <span
-                className="absolute inset-x-0 top-0 h-[3px] opacity-60 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ backgroundColor: category.accent, boxShadow: `0 0 12px 0 ${category.accent}` }}
-              />
-              {/* Soft radial glow in the accent color, top-right corner —
-                  faintly present by default, deepens on hover */}
-              <div
-                className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-[0.08] blur-3xl transition-opacity duration-500 group-hover:opacity-25"
-                style={{ backgroundColor: category.accent }}
+                className="absolute inset-x-0 top-0 h-[3px] opacity-40 transition-opacity duration-300 group-hover:opacity-100"
+                style={{ backgroundColor: ACCENT }}
               />
 
               <div className="relative">
-                <h3
-                  className="mb-6 flex items-center justify-between border-b pb-4 text-lg font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-xl"
-                  style={{ borderColor: `${category.accent}35` }}
-                >
+                <h3 className="mb-6 flex items-center justify-between border-b border-black/10 pb-4 text-lg font-extrabold tracking-tight text-gray-900 dark:border-white/10 dark:text-white sm:text-xl">
                   {category.title}
-                  <span
-                    className="h-2 w-2 rounded-full"
-                    style={{ backgroundColor: category.accent, boxShadow: `0 0 8px 0 ${category.accent}` }}
-                  />
+                  <span className="h-2 w-2 rounded-full bg-[#2DD3A8]" />
                 </h3>
 
                 <motion.div
@@ -226,21 +199,16 @@ export default function Skills() {
                       whileHover={{
                         scale: 1.06,
                         y: -2,
-                        borderColor: `${category.accent}90`,
-                        backgroundColor: `${category.accent}18`,
+                        backgroundColor: "rgba(45, 211, 168, 0.08)",
+                        borderColor: "rgba(45, 211, 168, 0.5)",
                       }}
                       whileTap={{ scale: 0.96 }}
-                      style={{
-                        borderColor: `${category.accent}30`,
-                        backgroundColor: `${category.accent}12`,
-                      }}
-                      className="flex cursor-pointer items-center gap-3 rounded-xl border p-3 transition-colors"
+                      className="flex cursor-pointer items-center gap-3 rounded-xl border border-gray-200 bg-black/[0.015] p-3 transition-colors dark:border-white/10 dark:bg-white/[0.02]"
                     >
                       <motion.div
                         whileHover={{ rotate: [0, -10, 10, -5, 0], scale: 1.1 }}
                         transition={{ duration: 0.5 }}
-                        style={{ backgroundColor: `${category.accent}28` }}
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-gray-50 shadow-sm dark:border-white/10 dark:bg-white/[0.06]"
                       >
                         {skill.icon}
                       </motion.div>
