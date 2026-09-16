@@ -1,11 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaReact, FaNodeJs, FaGithub, FaHtml5, FaCss3Alt, FaLaptopCode, FaGoogle, FaUserShield, FaExchangeAlt } from "react-icons/fa";
-import { 
-  SiNextdotjs, SiTypescript, SiJavascript, SiTailwindcss, 
-  SiExpress, SiMongodb, SiNetlify, SiVercel, SiDaisyui, SiFramer,
-  SiJsonwebtokens, SiStripe, SiGooglegemini, SiNpm
+import {
+  FaReact,
+  FaNodeJs,
+  FaGithub,
+  FaHtml5,
+  FaCss3Alt,
+  FaLaptopCode,
+  FaGoogle,
+  FaUserShield,
+  FaExchangeAlt,
+} from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiTypescript,
+  SiJavascript,
+  SiTailwindcss,
+  SiExpress,
+  SiMongodb,
+  SiPostgresql,
+  SiPrisma,
+  SiNetlify,
+  SiVercel,
+  SiDaisyui,
+  SiFramer,
+  SiJsonwebtokens,
+  SiStripe,
+  SiGooglegemini,
+  SiNpm,
+  SiPostman,
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 
@@ -16,6 +40,7 @@ interface Skill {
 
 interface SkillCategory {
   title: string;
+  accent: string; // hex color unique to this category
   skills: Skill[];
 }
 
@@ -23,52 +48,58 @@ export default function Skills() {
   const skillCategories: SkillCategory[] = [
     {
       title: "Frontend & UI Libraries",
+      accent: "#38BDF8",
       skills: [
-        { name: "Next.js", icon: <SiNextdotjs className="text-white text-xl sm:text-2xl" /> },
-        { name: "React.js", icon: <FaReact className="text-[#61DAFB] text-xl sm:text-2xl" /> },
-        { name: "TypeScript", icon: <SiTypescript className="text-[#3178C6] text-xl sm:text-2xl" /> },
-        { name: "JavaScript", icon: <SiJavascript className="text-[#F7DF1E] text-xl sm:text-2xl" /> },
-        { name: "Tailwind CSS", icon: <SiTailwindcss className="text-[#06B6D4] text-xl sm:text-2xl" /> },
-        { name: "HTML5", icon: <FaHtml5 className="text-[#E34F26] text-xl sm:text-2xl" /> },
-        { name: "CSS3", icon: <FaCss3Alt className="text-[#1572B6] text-xl sm:text-2xl" /> },
-        { name: "DaisyUI", icon: <SiDaisyui className="text-[#1095C1] text-xl sm:text-2xl" /> },
-        { name: "HeroUI", icon: <FaLaptopCode className="text-[#F43F5E] text-xl sm:text-2xl" /> },
-        { name: "Motion", icon: <SiFramer className="text-[#FF0055] text-xl sm:text-2xl" /> },
+        { name: "Next.js", icon: <SiNextdotjs className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
+        { name: "React.js", icon: <FaReact className="text-xl text-[#61DAFB] sm:text-2xl" /> },
+        { name: "TypeScript", icon: <SiTypescript className="text-xl text-[#3178C6] sm:text-2xl" /> },
+        { name: "JavaScript", icon: <SiJavascript className="text-xl text-[#F7DF1E] sm:text-2xl" /> },
+        { name: "Tailwind CSS", icon: <SiTailwindcss className="text-xl text-[#06B6D4] sm:text-2xl" /> },
+        { name: "HTML5", icon: <FaHtml5 className="text-xl text-[#E34F26] sm:text-2xl" /> },
+        { name: "CSS3", icon: <FaCss3Alt className="text-xl text-[#1572B6] sm:text-2xl" /> },
+        { name: "DaisyUI", icon: <SiDaisyui className="text-xl text-[#1095C1] sm:text-2xl" /> },
+        { name: "HeroUI", icon: <FaLaptopCode className="text-xl text-[#F43F5E] sm:text-2xl" /> },
+        { name: "Framer Motion", icon: <SiFramer className="text-xl text-[#FF0055] sm:text-2xl" /> },
       ],
     },
     {
       title: "Backend & APIs",
+      accent: "#2DD3A8",
       skills: [
-        { name: "Node.js", icon: <FaNodeJs className="text-[#339933] text-xl sm:text-2xl" /> },
-        { name: "Express.js", icon: <SiExpress className="text-white text-xl sm:text-2xl" /> },
-        { name: "REST API", icon: <FaExchangeAlt className="text-[#38BDF8] text-xl sm:text-2xl" /> },
-        { name: "Gemini API", icon: <SiGooglegemini className="text-[#8E75B2] text-xl sm:text-2xl" /> },
+        { name: "Node.js", icon: <FaNodeJs className="text-xl text-[#339933] sm:text-2xl" /> },
+        { name: "Express.js", icon: <SiExpress className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
+        { name: "REST API", icon: <FaExchangeAlt className="text-xl text-[#38BDF8] sm:text-2xl" /> },
+        { name: "Gemini API", icon: <SiGooglegemini className="text-xl text-[#8E75B2] sm:text-2xl" /> },
       ],
     },
     {
       title: "Auth & Security",
+      accent: "#A78BFA",
       skills: [
-        { name: "JWT Auth", icon: <SiJsonwebtokens className="text-[#D63AFF] text-xl sm:text-2xl" /> },
-        { name: "Better Auth", icon: <FaUserShield className="text-[#2DD3A8] text-xl sm:text-2xl" /> },
-        { name: "Google OAuth", icon: <FaGoogle className="text-[#EA4335] text-xl sm:text-2xl" /> },
-        { name: "RBAC", icon: <FaUserShield className="text-[#F59E0B] text-xl sm:text-2xl" /> },
+        { name: "JWT Auth", icon: <SiJsonwebtokens className="text-xl text-[#D63AFF] sm:text-2xl" /> },
+        { name: "Better Auth", icon: <FaUserShield className="text-xl text-[#2DD3A8] sm:text-2xl" /> },
+        { name: "Google OAuth", icon: <FaGoogle className="text-xl text-[#EA4335] sm:text-2xl" /> },
+        { name: "RBAC", icon: <FaUserShield className="text-xl text-[#F59E0B] sm:text-2xl" /> },
       ],
     },
     {
       title: "Database, Tools & Deployment",
+      accent: "#F5A524",
       skills: [
-        { name: "MongoDB", icon: <SiMongodb className="text-[#47A248] text-xl sm:text-2xl" /> },
-        { name: "Stripe", icon: <SiStripe className="text-[#635BFF] text-xl sm:text-2xl" /> },
-        { name: "Git & GitHub", icon: <FaGithub className="text-white text-xl sm:text-2xl" /> },
-        { name: "VS Code", icon: <VscVscode className="text-[#007ACC] text-xl sm:text-2xl" /> },
-        { name: "npm", icon: <SiNpm className="text-[#CB3837] text-xl sm:text-2xl" /> },
-        { name: "Vercel", icon: <SiVercel className="text-white text-xl sm:text-2xl" /> },
-        { name: "Netlify", icon: <SiNetlify className="text-[#00C7B7] text-xl sm:text-2xl" /> },
+        { name: "MongoDB", icon: <SiMongodb className="text-xl text-[#47A248] sm:text-2xl" /> },
+        { name: "PostgreSQL", icon: <SiPostgresql className="text-xl text-[#4169E1] sm:text-2xl" /> },
+        { name: "Prisma ORM", icon: <SiPrisma className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
+        { name: "Stripe", icon: <SiStripe className="text-xl text-[#635BFF] sm:text-2xl" /> },
+        { name: "Git & GitHub", icon: <FaGithub className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
+        { name: "VS Code", icon: <VscVscode className="text-xl text-[#007ACC] sm:text-2xl" /> },
+        { name: "Postman", icon: <SiPostman className="text-xl text-[#FF6C37] sm:text-2xl" /> },
+        { name: "npm", icon: <SiNpm className="text-xl text-[#CB3837] sm:text-2xl" /> },
+        { name: "Vercel", icon: <SiVercel className="text-xl text-gray-900 dark:text-white sm:text-2xl" /> },
+        { name: "Netlify", icon: <SiNetlify className="text-xl text-[#00C7B7] sm:text-2xl" /> },
       ],
     },
   ];
 
-  // Card container variants with 'as const' to fix TypeScript errors
   const cardVariants = {
     hidden: { opacity: 0, x: 80 },
     visible: {
@@ -89,23 +120,25 @@ export default function Skills() {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: 20, scale: 0.9 },
+    hidden: { opacity: 0, x: 20, scale: 0.85, rotate: -4 },
     visible: {
       opacity: 1,
       x: 0,
       scale: 1,
-      transition: { duration: 0.4, ease: "easeOut" as const },
+      rotate: 0,
+      transition: { type: "spring" as const, stiffness: 260, damping: 20 },
     },
   };
 
   return (
-    <section id="skills" className="relative bg-[#0A0A0A] py-24 text-white lg:py-32 overflow-hidden">
-      
+    <section
+      id="skills"
+      className="relative overflow-hidden bg-white py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
+    >
       {/* Background Soft Glow - Safe Position */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#2DD3A8]/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="pointer-events-none absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2DD3A8]/[0.06] blur-[150px] dark:bg-[#2DD3A8]/5" />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-10 relative z-10">
-        
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
         {/* Section Header */}
         <div className="mb-6 flex items-center gap-3">
           <motion.span
@@ -113,25 +146,27 @@ export default function Skills() {
             animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400">
             My Expertise
           </span>
         </div>
 
         {/* Section Title */}
         <div className="mb-16">
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl leading-[1.25]">
-            Technologies & <br />
-            <span className="text-transparent [-webkit-text-stroke:1.5px_#2DD3A8] sm:[-webkit-text-stroke:2px_#2DD3A8]">
+          <h2 className="text-3xl font-extrabold leading-[1.25] tracking-tight sm:text-4xl lg:text-5xl">
+            Technologies &amp; <br />
+            {/* Light mode: solid fill (an outline was low-contrast on white).
+                Dark mode: original transparent + stroke outline. */}
+            <span className="text-[#0F8F6E] dark:text-transparent sm:dark:[-webkit-text-stroke:2px_#2DD3A8] dark:[-webkit-text-stroke:1.5px_#2DD3A8]">
               Development Stack.
             </span>
           </h2>
         </div>
 
         {/* Skills Categories Grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 items-stretch">
+        <div className="grid grid-cols-1 items-stretch gap-8 md:grid-cols-2">
           {skillCategories.map((category, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               variants={cardVariants}
               initial="hidden"
@@ -139,15 +174,42 @@ export default function Skills() {
               transition={{ delay: idx * 0.15 }}
               viewport={{ once: true, amount: 0.2 }}
               whileHover={{
-                y: -4,
-                boxShadow: "0 0 25px rgba(45, 211, 168, 0.15)",
+                y: -6,
+                rotateX: 1.5,
+                rotateY: -1.5,
+                boxShadow: `0 20px 45px -15px ${category.accent}55`,
               }}
-              className="flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8 backdrop-blur-md shadow-xl transition-colors duration-300 hover:border-[#2DD3A8]/40"
+              style={{
+                transformPerspective: 1000,
+                borderColor: `${category.accent}40`,
+                // Default resting background carries only a faint tint —
+                // kept subtle so it never competes with the text on top.
+                backgroundColor: `${category.accent}05`,
+              }}
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 shadow-xl backdrop-blur-md transition-colors duration-300 sm:p-8"
             >
-              <div>
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex items-center justify-between">
+              {/* Top accent bar — always visible at rest, brightens on hover */}
+              <span
+                className="absolute inset-x-0 top-0 h-[3px] opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+                style={{ backgroundColor: category.accent, boxShadow: `0 0 12px 0 ${category.accent}` }}
+              />
+              {/* Soft radial glow in the accent color, top-right corner —
+                  faintly present by default, deepens on hover */}
+              <div
+                className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-[0.08] blur-3xl transition-opacity duration-500 group-hover:opacity-25"
+                style={{ backgroundColor: category.accent }}
+              />
+
+              <div className="relative">
+                <h3
+                  className="mb-6 flex items-center justify-between border-b pb-4 text-lg font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-xl"
+                  style={{ borderColor: `${category.accent}35` }}
+                >
                   {category.title}
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#2DD3A8]" />
+                  <span
+                    className="h-2 w-2 rounded-full"
+                    style={{ backgroundColor: category.accent, boxShadow: `0 0 8px 0 ${category.accent}` }}
+                  />
                 </h3>
 
                 <motion.div
@@ -158,25 +220,31 @@ export default function Skills() {
                   viewport={{ once: true, amount: 0.2 }}
                 >
                   {category.skills.map((skill, sIdx) => (
-                    <motion.div 
+                    <motion.div
                       key={sIdx}
                       variants={itemVariants}
-                      whileHover={{ 
-                        scale: 1.06, 
-                        backgroundColor: "rgba(45, 211, 168, 0.06)",
-                        borderColor: "rgba(45, 211, 168, 0.5)",
+                      whileHover={{
+                        scale: 1.06,
+                        y: -2,
+                        borderColor: `${category.accent}90`,
+                        backgroundColor: `${category.accent}18`,
                       }}
                       whileTap={{ scale: 0.96 }}
-                      className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3 transition-colors cursor-pointer"
+                      style={{
+                        borderColor: `${category.accent}30`,
+                        backgroundColor: `${category.accent}12`,
+                      }}
+                      className="flex cursor-pointer items-center gap-3 rounded-xl border p-3 transition-colors"
                     >
-                      <motion.div 
-                        whileHover={{ rotate: [0, -10, 10, -5, 0] }}
+                      <motion.div
+                        whileHover={{ rotate: [0, -10, 10, -5, 0], scale: 1.1 }}
                         transition={{ duration: 0.5 }}
-                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/[0.03]"
+                        style={{ backgroundColor: `${category.accent}28` }}
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
                       >
                         {skill.icon}
                       </motion.div>
-                      <span className="text-xs font-medium text-gray-200">
+                      <span className="text-xs font-semibold text-gray-900 dark:text-white">
                         {skill.name}
                       </span>
                     </motion.div>
@@ -186,7 +254,6 @@ export default function Skills() {
             </motion.div>
           ))}
         </div>
-
       </div>
     </section>
   );
