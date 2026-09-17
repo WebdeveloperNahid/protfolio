@@ -2,6 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { HiAcademicCap } from "react-icons/hi2";
+import GridBackground from "./Gridbackground";
 
 interface EducationEntry {
   degree: string;
@@ -49,11 +50,10 @@ const itemVariants: Variants = {
   },
 };
 
-// Tag গুলোর জন্য আলাদা stagger — card ঢোকার পর ধাপে ধাপে আসবে
 const tagContainerVariants: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.1, delayChildren: 0.3 },
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
   },
 };
 
@@ -69,9 +69,15 @@ const tagVariants: Variants = {
 
 export default function Education() {
   return (
-    <section id="education" className="relative overflow-hidden bg-[#0A0A0A] py-24 text-white lg:py-32">
+    <section
+      id="education"
+      className="relative overflow-hidden bg-white py-24 text-gray-900 transition-colors duration-300 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
+    >
+      {/* Dynamic Grid Background with 32px perfect squares */}
+      {/* <GridBackground opacity={0.09} darkOpacity={0.04} size={56} /> */}
+
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute right-1/4 top-1/2 h-[450px] w-[450px] -translate-y-1/2 rounded-full bg-[#2DD3A8]/5 blur-[150px]" />
+      <div className="pointer-events-none absolute right-1/4 top-1/2 h-[450px] w-[450px] -translate-y-1/2 rounded-full bg-[#2DD3A8]/[0.05] blur-[150px] dark:bg-[#2DD3A8]/5" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 lg:px-10">
         {/* Section Header */}
@@ -87,7 +93,7 @@ export default function Education() {
             animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400">
             Academic Background
           </span>
         </motion.div>
@@ -101,7 +107,7 @@ export default function Education() {
         >
           <h2 className="text-3xl font-extrabold leading-[1.25] tracking-tight sm:text-4xl lg:text-5xl">
             Education &{" "}
-            <span className="block text-transparent [-webkit-text-stroke:1.5px_#2DD3A8] sm:[-webkit-text-stroke:2px_#2DD3A8]">
+            <span className="block text-[#0F8F6E] dark:text-transparent dark:[-webkit-text-stroke:2px_#2DD3A8]">
               Qualifications.
             </span>
           </h2>
@@ -115,14 +121,14 @@ export default function Education() {
           viewport={{ once: true, amount: 0.2 }}
           className="relative"
         >
-          {/* Vertical connecting line - scroll e draw hoye ashbe */}
+          {/* Vertical connecting line */}
           <motion.div
             initial={{ scaleY: 0 }}
             whileInView={{ scaleY: 1 }}
             transition={{ duration: 1.2, ease: "easeInOut" }}
             viewport={{ once: true, amount: 0.2 }}
             style={{ originY: 0 }}
-            className="absolute bottom-4 left-6 top-4 w-px bg-gradient-to-b from-[#2DD3A8]/40 via-white/10 to-transparent"
+            className="absolute bottom-4 left-6 top-4 w-px bg-gradient-to-b from-[#2DD3A8]/40 via-gray-200 to-transparent dark:via-white/10"
           />
 
           <div className="flex flex-col gap-6">
@@ -132,36 +138,42 @@ export default function Education() {
                 variants={itemVariants}
                 whileHover={{
                   x: 6,
-                  boxShadow: "0 0 25px rgba(45, 211, 168, 0.12)",
+                  boxShadow: "0 10px 30px -10px rgba(45, 211, 168, 0.2)",
                 }}
-                className="group relative flex gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-md transition-colors duration-300 hover:border-[#2DD3A8]/40 sm:p-7"
+                className="group relative flex gap-5 rounded-2xl border border-black/10 bg-black/[0.015] p-6 backdrop-blur-md transition-all duration-300 hover:border-[#2DD3A8]/50 hover:bg-black/[0.03] dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-[#2DD3A8]/40 dark:hover:bg-white/[0.045] sm:p-7"
               >
                 {/* Icon node */}
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: [0, -8, 8, -4, 0] }}
                   transition={{ duration: 0.5 }}
-                  className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#2DD3A8]/30 bg-[#0A0A0A] text-[#2DD3A8] transition-colors duration-300 group-hover:bg-[#2DD3A8]/10"
+                  className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#2DD3A8]/40 bg-white text-[#0F8F6E] shadow-sm transition-colors duration-300 group-hover:bg-[#2DD3A8]/10 dark:bg-[#0A0A0A] dark:text-[#2DD3A8]"
                 >
-                  <HiAcademicCap size={20} />
+                  <HiAcademicCap size={22} />
                 </motion.div>
 
                 {/* Content */}
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="text-base font-bold text-white sm:text-lg">
+                    <h3 className="text-base font-bold text-gray-900 dark:text-white sm:text-lg">
                       {edu.degree}
                     </h3>
                     {edu.status === "running" && (
                       <motion.span
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                        className="rounded-full border border-[#2DD3A8]/40 bg-[#2DD3A8]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-[#2DD3A8]"
+                        animate={{ opacity: [1, 0.6, 1] }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="rounded-full border border-[#2DD3A8]/40 bg-[#2DD3A8]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-[#0F8F6E] dark:text-[#2DD3A8]"
                       >
                         Running
                       </motion.span>
                     )}
                   </div>
-                  <p className="mt-1.5 text-sm text-gray-400">{edu.institution}</p>
+                  <p className="mt-1.5 text-sm text-gray-600 dark:text-gray-400">
+                    {edu.institution}
+                  </p>
 
                   <motion.div
                     variants={tagContainerVariants}
@@ -172,15 +184,21 @@ export default function Education() {
                   >
                     <motion.span
                       variants={tagVariants}
-                      whileHover={{ scale: 1.05, borderColor: "rgba(45, 211, 168, 0.4)" }}
-                      className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium text-gray-300"
+                      whileHover={{
+                        scale: 1.04,
+                        borderColor: "rgba(45, 211, 168, 0.4)",
+                      }}
+                      className="rounded-full border border-black/10 bg-black/[0.03] px-3.5 py-1.5 text-xs font-medium text-gray-700 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-300"
                     >
                       {edu.duration}
                     </motion.span>
                     <motion.span
                       variants={tagVariants}
-                      whileHover={{ scale: 1.05, borderColor: "rgba(45, 211, 168, 0.4)" }}
-                      className="rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium text-gray-300"
+                      whileHover={{
+                        scale: 1.04,
+                        borderColor: "rgba(45, 211, 168, 0.4)",
+                      }}
+                      className="rounded-full border border-black/10 bg-black/[0.03] px-3.5 py-1.5 text-xs font-medium text-gray-700 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-300"
                     >
                       {edu.result}
                     </motion.span>

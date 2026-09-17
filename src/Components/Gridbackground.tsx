@@ -1,40 +1,31 @@
 "use client";
 
 type GridBackgroundProps = {
-  /** Opacity of the grid lines in light mode. Keep this low (0.02–0.04) for
-   *  text-heavy sections so it never fights with readability. */
+  /** Light mode-এ দাগগুলো পরিষ্কার বোঝার জন্য opacity 0.18 */
   opacity?: number;
-  /** Opacity of the grid lines in dark mode — usually a touch higher than
-   *  light mode since dark backgrounds absorb light lines more. */
+  /** Dark mode-এ দৃশ্যমানতা বজায় রাখতে opacity 0.14 */
   darkOpacity?: number;
-  /** Size of one grid cell in pixels. Vary this slightly between sections
-   *  (e.g. 56 in Hero, 64 in About) so the repetition doesn't feel identical
-   *  everywhere. */
+  /**
+   * টিক চিহ্ন দেওয়া ছোট স্কয়ার খোপের জন্য size কমিয়ে 32px করা হয়েছে।
+   * আপনি চাইলে 32-40 এর মধ্যে রেখে অ্যাডজাস্ট করতে পারেন।
+   */
   size?: number;
-  /** Grid line color. Defaults to the brand teal used across the site. */
+  /** Grid line color */
   color?: string;
-  /** Extra classes, e.g. to constrain the area it covers. */
+  /** Extra utility classes */
   className?: string;
 };
 
 /**
- * Faint square-grid texture used as a background layer.
- *
- * Usage: drop this as the FIRST child inside any `relative` section wrapper,
- * behind your actual content. It never blocks clicks (pointer-events: none)
- * and never needs its own stacking context work — just make sure the parent
- * section has `position: relative` and your content has `position: relative
- * z-10` (or similar) so it renders above this layer.
+ * Perfect Square Grid Background Component
  */
 export default function GridBackground({
-  opacity = 0.03,
-  darkOpacity,
-  size = 56,
+  opacity = 0.18,
+  darkOpacity = 0.14,
+  size = 32, // <--- ছোট ও পারফেক্ট খোপের জন্য 32px করা হয়েছে
   color = "#2DD3A8",
   className = "",
 }: GridBackgroundProps) {
-  const resolvedDarkOpacity = darkOpacity ?? opacity + 0.02;
-
   const gridStyle = {
     backgroundImage:
       "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
@@ -42,14 +33,21 @@ export default function GridBackground({
     color,
   };
 
-  // Two stacked layers, one per color scheme, since inline `style` can't
-  // read Tailwind's `dark:` class directly — this keeps opacity fully
-  // dynamic via props while still respecting class-based dark mode
-  // (the same `dark` class strategy the rest of the site uses).
   return (
-    <div aria-hidden="true" className={`pointer-events-none absolute inset-0 ${className}`}>
-      <div className="absolute inset-0 dark:hidden" style={{ ...gridStyle, opacity }} />
-      <div className="absolute inset-0 hidden dark:block" style={{ ...gridStyle, opacity: resolvedDarkOpacity }} />
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-0 ${className}`}
+    >
+      {/* Light Mode Layer */}
+      <div
+        className="absolute inset-0 dark:hidden"
+        style={{ ...gridStyle, opacity }}
+      />
+      {/* Dark Mode Layer */}
+      <div
+        className="absolute inset-0 hidden dark:block"
+        style={{ ...gridStyle, opacity: darkOpacity }}
+      />
     </div>
   );
 }

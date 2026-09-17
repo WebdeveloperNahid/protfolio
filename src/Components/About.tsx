@@ -30,7 +30,7 @@ export default function About() {
       id="about"
       className="relative overflow-hidden bg-white py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
     >
-      <GridBackground opacity={0.02} darkOpacity={0.04} size={64} />
+      <GridBackground opacity={0.09} darkOpacity={0.04} size={56} />
       <div className="pointer-events-none absolute -left-20 top-1/4 h-[420px] w-[420px] rounded-full bg-[#2DD3A8]/[0.05] blur-[140px] dark:bg-[#2DD3A8]/5" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
