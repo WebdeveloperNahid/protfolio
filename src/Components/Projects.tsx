@@ -2,18 +2,22 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
+import { motion, MotionConfig, type Variants } from "framer-motion";
 import { HiArrowUpRight } from "react-icons/hi2";
 import { PROJECTS } from "@/data/projects";
+import GridBackground from "./Gridbackground";
 
-const fadeUp: Variants = {
+const makeFadeUp = (delay = 0): Variants => ({
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
   },
-};
+});
+
+const fadeUp = makeFadeUp();
+const fadeUpDelayed = makeFadeUp(0.15);
 
 // Even index -> left theke, Odd index -> right theke ashbe
 const getCardVariants = (index: number): Variants => ({
@@ -38,140 +42,159 @@ const tagVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.35, ease: "easeOut" as const },
   },
 };
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative overflow-hidden bg-[#0A0A0A] py-24 text-white lg:py-32">
-      {/* Ambient glow */}
-      <div className="pointer-events-none absolute right-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-[#2DD3A8]/5 blur-[150px]" />
+    <MotionConfig reducedMotion="user">
+      <section
+        id="projects"
+        className="relative overflow-hidden bg-white py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
+      >
+         <GridBackground opacity={0.09} darkOpacity={0.04} size={56} />
+        {/* Ambient glow */}
+        <div className="pointer-events-none absolute right-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-[#2DD3A8]/[0.06] blur-[150px] dark:bg-[#2DD3A8]/5" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
-        {/* Header: label + big split heading (Maxel style) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true, amount: 0.4 }}
-          className="mb-6 flex items-center gap-3"
-        >
-          <motion.span
-            className="h-2 w-2 rounded-full bg-[#2DD3A8]"
-            animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
-            Selected Projects
-          </span>
-        </motion.div>
-
-        <div className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <motion.h2
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-2xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
+          {/* Header: label + big split heading (Maxel style) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.4 }}
+            className="mb-6 flex items-center gap-3"
           >
-            Crafting Scalable{" "}
-            <span className="text-transparent [-webkit-text-stroke:1.5px_#2DD3A8] sm:[-webkit-text-stroke:2px_#2DD3A8]">
-              Digital
-            </span>{" "}
-            Products That Perform
-          </motion.h2>
+            <motion.span
+              className="h-2 w-2 rounded-full bg-[#2DD3A8]"
+              animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400">
+              Selected Projects
+            </span>
+          </motion.div>
 
-          <motion.p
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ delay: 0.15 }}
-            className="max-w-sm text-sm leading-relaxed text-gray-400 sm:text-base lg:text-right"
-          >
-            Each project reflects a strategic approach to problem solving and
-            user experience — built to be fast, scalable and reliable.
-          </motion.p>
-        </div>
-
-        {/* Project cards grid — offset second column like Maxel's masonry feel */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {PROJECTS.map((project, index) => (
-            <motion.div
-              key={project.slug}
-              variants={getCardVariants(index)}
+          <div className="mb-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <motion.h2
+              variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              whileHover={{ y: -6 }}
-              className={index % 2 === 1 ? "lg:mt-16" : ""}
+              viewport={{ once: true, amount: 0.3 }}
+              className="max-w-2xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
             >
-              <Link
-                href={`/projects/${project.slug}`}
-                className="group block overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition-all duration-300 hover:border-[#2DD3A8]/40 hover:shadow-[0_0_35px_rgba(45,211,168,0.12)]"
+              Crafting Scalable{" "}
+              {/* Light mode: solid fill (outline is low-contrast on white).
+                  Dark mode: transparent + stroke outline. */}
+              <span className="text-[#0F8F6E] dark:text-transparent dark:[-webkit-text-stroke:1.5px_#2DD3A8] sm:dark:[-webkit-text-stroke:2px_#2DD3A8]">
+                Digital
+              </span>{" "}
+              Products That Perform
+            </motion.h2>
+
+            <motion.p
+              variants={fadeUpDelayed}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="max-w-sm text-sm leading-relaxed text-gray-600 dark:text-gray-400 sm:text-base lg:text-right"
+            >
+              Each project reflects a strategic approach to problem solving and
+              user experience — built to be fast, scalable and reliable.
+            </motion.p>
+          </div>
+
+          {/* Project cards grid — offset second column like Maxel's masonry feel */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {PROJECTS.map((project, index) => (
+              <motion.div
+                key={project.slug}
+                variants={getCardVariants(index)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                whileHover={{ y: -6 }}
+                className={index % 2 === 1 ? "lg:mt-16" : ""}
               >
-                {/* Image */}
-                <div className="relative h-64 w-full overflow-hidden sm:h-80">
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group relative block overflow-hidden rounded-2xl border border-black/10 bg-black/[0.015] transition-all duration-300 hover:border-[#2DD3A8]/40 hover:shadow-[0_20px_45px_-18px_rgba(45,211,168,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2DD3A8]/60 dark:border-white/10 dark:bg-white/[0.02] dark:hover:border-[#2DD3A8]/40 dark:hover:shadow-[0_0_35px_rgba(45,211,168,0.12)]"
+                >
+                  {/* Image */}
+                  <div className="relative h-64 w-full overflow-hidden bg-gray-100 dark:bg-white/[0.04] sm:h-80">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-80 dark:from-[#0A0A0A]/60" />
+
+                    {/* Category chip */}
+                    <motion.span
+                      initial={{ opacity: 0, y: -10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                      viewport={{ once: true, amount: 0.5 }}
+                      className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0A0A0A]/70 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
+                    >
+                      {project.category}
+                    </motion.span>
+
+                    {/* Floating arrow button */}
+                    <span className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#2DD3A8] text-lg text-[#0A0A0A] transition-all duration-300 group-hover:rotate-45 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(45,211,168,0.5)]">
+                      <HiArrowUpRight />
+                    </span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6 sm:p-7">
+                    <motion.div
+                      variants={tagContainerVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.5 }}
+                      className="mb-3 flex flex-wrap gap-2"
+                    >
+                      {project.tags.map((tag) => (
+                        <motion.span
+                          key={tag}
+                          variants={tagVariants}
+                          className="rounded-full border border-black/10 bg-black/[0.03] px-3 py-1 text-xs font-medium text-gray-600 dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-400"
+                        >
+                          {tag}
+                        </motion.span>
+                      ))}
+                    </motion.div>
+
+                    <h3 className="text-xl font-bold text-gray-900 transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#0F8F6E] dark:text-white dark:group-hover:text-[#2DD3A8] sm:text-2xl">
+                      {project.name}
+                    </h3>
+
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gray-700 transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#0F8F6E] dark:text-gray-300 dark:group-hover:text-[#2DD3A8]">
+                      View Details
+                      <HiArrowUpRight size={14} />
+                    </span>
+                  </div>
+
+                  {/* Bottom accent bar — draws in from the left on hover
+                      (same accent language as the Certifications cards) */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-[3px] origin-left scale-x-0 bg-[#2DD3A8] transition-transform duration-500 ease-out group-hover:scale-x-100"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/60 via-transparent to-transparent transition-opacity duration-300 group-hover:opacity-80" />
-
-                  {/* Category chip */}
-                  <motion.span
-                    initial={{ opacity: 0, y: -10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    viewport={{ once: true, amount: 0.5 }}
-                    className="absolute left-4 top-4 rounded-full border border-white/20 bg-[#0A0A0A]/70 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
-                  >
-                    {project.category}
-                  </motion.span>
-
-                  {/* Floating arrow button */}
-                  <span className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center rounded-full bg-[#2DD3A8] text-lg text-[#0A0A0A] transition-all duration-300 group-hover:scale-110 group-hover:rotate-45 group-hover:shadow-[0_0_20px_rgba(45,211,168,0.5)]">
-                    <HiArrowUpRight />
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 sm:p-7">
-                  <motion.div
-                    variants={tagContainerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.5 }}
-                    className="mb-3 flex flex-wrap gap-2"
-                  >
-                    {project.tags.map((tag) => (
-                      <motion.span
-                        key={tag}
-                        variants={tagVariants}
-                        className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium text-gray-400"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </motion.div>
-
-                  <h3 className="text-xl font-bold text-white transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#2DD3A8] sm:text-2xl">
-                    {project.name}
-                  </h3>
-
-                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-gray-300 transition-all duration-200 group-hover:translate-x-1 group-hover:text-[#2DD3A8]">
-                    View Details
-                    <HiArrowUpRight size={14} />
-                  </span>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </MotionConfig>
   );
 }
