@@ -73,6 +73,7 @@ export default function Education() {
       id="education"
       className="relative overflow-hidden bg-white py-24 text-gray-900 transition-colors duration-300 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
     >
+       <GridBackground opacity={0.09} darkOpacity={0.04} size={56} />
       {/* Dynamic Grid Background with 32px perfect squares */}
       {/* <GridBackground opacity={0.09} darkOpacity={0.04} size={56} /> */}
 
