@@ -377,6 +377,7 @@ export default function Resume() {
                         src="/images/omar.png"
                         alt="Omar Faruk Nahid"
                         fill
+                        sizes="(max-width: 640px) 192px, 224px"
                         className="object-cover object-top"
                       />
                     </motion.div>
