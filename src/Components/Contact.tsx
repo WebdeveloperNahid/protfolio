@@ -10,6 +10,7 @@ import {
   HiCheckCircle,
 } from "react-icons/hi2";
 import { FaGithub, FaLinkedinIn, FaFacebookF, FaWhatsapp } from "react-icons/fa6";
+import GridBackground from "./Gridbackground";
 
 const CONTACT = {
   email: "omarfaruk.nahid.webdeveloper@gmail.com",
@@ -17,7 +18,7 @@ const CONTACT = {
   whatsapp: "01757234194",
 };
 
-// ⚠️ এখানে আপনার Web3Forms Access Key বসান (web3forms.com থেকে পাওয়া)
+// Web3Forms Access Key (web3forms.com)
 const WEB3FORMS_ACCESS_KEY = "59c1d8ae-2549-495d-9c18-c6e4cff1fc44";
 
 const SOCIAL_LINKS = [
@@ -63,6 +64,13 @@ const listVariants: Variants = {
 
 type Status = "idle" | "loading" | "success" | "error";
 
+// Shared input styling (light + dark)
+const INPUT_CLASS =
+  "w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition-colors duration-200 placeholder:text-gray-400 focus:border-[#2DD3A8] dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:placeholder:text-gray-600 dark:focus:border-[#2DD3A8]/50";
+
+const LABEL_CLASS =
+  "mb-2 block text-xs font-medium uppercase tracking-wider text-gray-600 dark:text-gray-400";
+
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
@@ -105,9 +113,14 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-[#0A0A0A] py-24 text-white lg:py-32">
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-[#FAFBFC] py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
+    >
+      <GridBackground opacity={0.02} darkOpacity={0.04} size={60} />
+
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#2DD3A8]/5 blur-[150px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/4 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#2DD3A8]/[0.06] blur-[150px] dark:bg-[#2DD3A8]/5" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
         {/* Section Header */}
@@ -123,7 +136,7 @@ export default function Contact() {
             animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-500 dark:text-gray-400">
             Get In Touch
           </span>
         </motion.div>
@@ -137,11 +150,11 @@ export default function Contact() {
         >
           <h2 className="text-3xl font-extrabold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
             Let&apos;s{" "}
-            <span className="text-transparent [-webkit-text-stroke:1.5px_#2DD3A8] sm:[-webkit-text-stroke:2px_#2DD3A8]">
+            <span className="text-[#0F8F6E] dark:text-transparent dark:[-webkit-text-stroke:1.5px_#2DD3A8] sm:dark:[-webkit-text-stroke:2px_#2DD3A8]">
               Talk.
             </span>
           </h2>
-          <p className="mt-4 text-sm text-gray-400 sm:text-base">
+          <p className="mt-4 text-sm text-gray-600 dark:text-gray-400 sm:text-base">
             Have a project in mind or just want to say hi? I&apos;m always
             open to discussing new opportunities.
           </p>
@@ -164,20 +177,20 @@ export default function Contact() {
                 rel={item.label === "WhatsApp" ? "noopener noreferrer" : undefined}
                 variants={fadeUp}
                 whileHover={{ x: 6 }}
-                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md transition-colors duration-300 hover:border-[#2DD3A8]/40 sm:p-6"
+                className="group flex items-center gap-4 rounded-2xl border border-black/10 bg-black/[0.015] p-5 backdrop-blur-md transition-colors duration-300 hover:border-[#2DD3A8]/40 dark:border-white/10 dark:bg-white/[0.02] sm:p-6"
               >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#2DD3A8]/30 text-[#2DD3A8] transition-colors duration-300 group-hover:bg-[#2DD3A8]/10">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#2DD3A8]/30 text-[#0F8F6E] transition-colors duration-300 group-hover:bg-[#2DD3A8]/10 dark:text-[#2DD3A8]">
                   <item.icon size={20} />
                 </span>
-                <div className="flex-1">
+                <div className="min-w-0 flex-1">
                   <p className="text-xs uppercase tracking-wider text-gray-500">
                     {item.label}
                   </p>
-                  <p className="mt-1 text-sm font-semibold text-white sm:text-base">
+                  <p className="mt-1 break-all text-sm font-semibold text-gray-900 dark:text-white sm:text-base">
                     {item.value}
                   </p>
                 </div>
-                <HiArrowUpRight className="text-gray-500 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#2DD3A8]" />
+                <HiArrowUpRight className="shrink-0 text-gray-400 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#0F8F6E] dark:text-gray-500 dark:group-hover:text-[#2DD3A8]" />
               </motion.a>
             ))}
 
@@ -190,7 +203,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-gray-300 transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:text-[#2DD3A8]"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-gray-600 transition-colors duration-200 hover:border-[#2DD3A8]/60 hover:bg-[#2DD3A8]/[0.06] hover:text-[#128363] dark:border-white/15 dark:text-gray-300 dark:hover:bg-transparent dark:hover:text-[#2DD3A8]"
                 >
                   <Icon size={17} />
                 </a>
@@ -205,10 +218,10 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
             viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col gap-5 rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-md sm:p-8"
+            className="flex flex-col gap-5 rounded-2xl border border-black/10 bg-black/[0.015] p-6 shadow-xl backdrop-blur-md dark:border-white/10 dark:bg-white/[0.02] sm:p-8"
           >
             <div>
-              <label htmlFor="name" className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400">
+              <label htmlFor="name" className={LABEL_CLASS}>
                 Name
               </label>
               <input
@@ -219,12 +232,12 @@ export default function Contact() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="Your name"
-                className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none transition-colors duration-200 focus:border-[#2DD3A8]/50"
+                className={INPUT_CLASS}
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400">
+              <label htmlFor="email" className={LABEL_CLASS}>
                 Email
               </label>
               <input
@@ -235,12 +248,12 @@ export default function Contact() {
                 value={form.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none transition-colors duration-200 focus:border-[#2DD3A8]/50"
+                className={INPUT_CLASS}
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400">
+              <label htmlFor="message" className={LABEL_CLASS}>
                 Message
               </label>
               <textarea
@@ -251,21 +264,21 @@ export default function Contact() {
                 value={form.message}
                 onChange={handleChange}
                 placeholder="Tell me about your project..."
-                className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-gray-600 outline-none transition-colors duration-200 focus:border-[#2DD3A8]/50"
+                className={`${INPUT_CLASS} resize-none`}
               />
             </div>
 
             <button
               type="submit"
               disabled={status === "loading"}
-              className="group mt-2 flex items-center justify-center gap-2 rounded-full bg-[#2DD3A8] px-6 py-3.5 text-sm font-semibold text-[#0A0A0A] transition-transform duration-200 hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
+              className="group mt-2 flex items-center justify-center gap-2 rounded-full bg-[#2DD3A8] px-6 py-3.5 text-sm font-semibold text-[#0A0A0A] shadow-[0_8px_24px_-8px_rgba(45,211,168,0.6)] transition-transform duration-200 hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
             >
               {status === "loading" ? (
                 "Sending..."
               ) : (
                 <>
                   Send Message
-                  <HiPaperAirplane className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <HiPaperAirplane className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </>
               )}
             </button>
@@ -275,7 +288,7 @@ export default function Contact() {
               <motion.p
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2 text-sm font-medium text-[#2DD3A8]"
+                className="flex items-center gap-2 text-sm font-medium text-[#0F8F6E] dark:text-[#2DD3A8]"
               >
                 <HiCheckCircle size={18} />
                 Message sent successfully! I&apos;ll get back to you soon.
@@ -285,7 +298,7 @@ export default function Contact() {
               <motion.p
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-sm font-medium text-red-400"
+                className="text-sm font-medium text-red-600 dark:text-red-400"
               >
                 Something went wrong. Please try again or email me directly.
               </motion.p>
