@@ -15,7 +15,8 @@ import {
 } from "react-icons/hi2";
 import { FaGithub } from "react-icons/fa6";
 import { PROJECTS } from "@/data/projects";
-import GridBackground from "@/components/Gridbackground";
+import GridBackground from "@/Components/Gridbackground";
+
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
