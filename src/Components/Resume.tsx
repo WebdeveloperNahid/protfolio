@@ -14,8 +14,7 @@ import {
   SiFramer,
   SiJavascript,
 } from "react-icons/si";
-
-const ACCENT = "#2DD3A8";
+import GridBackground from "./Gridbackground";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -151,8 +150,10 @@ export default function Resume() {
   return (
     <section
       id="resume"
-      className="relative overflow-hidden bg-white py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
+      className="relative overflow-hidden bg-[#FAFBFC] py-24 text-gray-900 dark:bg-[#0A0A0A] dark:text-white lg:py-32"
     >
+      <GridBackground opacity={0.02} darkOpacity={0.04} size={60} />
+
       {/* Background Glow */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#2DD3A8]/[0.06] blur-[160px] dark:bg-[#2DD3A8]/5" />
 
@@ -185,8 +186,6 @@ export default function Resume() {
             className="max-w-2xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
           >
             Professional{" "}
-            {/* Light mode: solid fill (outline was low-contrast on white).
-                Dark mode: original transparent + stroke outline. */}
             <span className="text-[#0F8F6E] dark:text-transparent dark:[-webkit-text-stroke:2px_#2DD3A8]">
               Resume
             </span>
@@ -212,12 +211,15 @@ export default function Resume() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[30px] border border-black/10 bg-black/[0.015] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03]"
+          whileHover={{ y: -4 }}
+          transition={{ type: "spring", stiffness: 200, damping: 22 }}
+          className="relative overflow-hidden rounded-[30px] border border-black/10 bg-black/[0.015] shadow-[0_30px_80px_-30px_rgba(15,143,110,0.15)] backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] dark:shadow-[0_30px_80px_-30px_rgba(0,0,0,0.5)]"
         >
           {/* Top accent bar — consistent with the rest of the site */}
-          <span className="absolute inset-x-0 top-0 z-10 h-[3px] bg-[#2DD3A8] opacity-50" />
+          <span className="absolute inset-x-0 top-0 z-10 h-[3px] bg-gradient-to-r from-transparent via-[#2DD3A8] to-transparent opacity-70" />
           {/* Decorative Glow */}
           <div className="pointer-events-none absolute -right-24 -top-24 h-60 w-60 rounded-full bg-[#2DD3A8]/10 blur-[120px]" />
+          <div className="pointer-events-none absolute -bottom-24 -left-24 h-60 w-60 rounded-full bg-[#2DD3A8]/[0.04] blur-[120px] dark:bg-[#2DD3A8]/5" />
 
           <div className="relative grid gap-10 p-8 lg:grid-cols-[1.3fr_.7fr] lg:items-stretch lg:p-12">
             {/* LEFT */}
@@ -228,7 +230,8 @@ export default function Resume() {
               viewport={{ once: true, amount: 0.3 }}
               className="flex flex-col"
             >
-              <span className="inline-flex w-fit rounded-full border border-[#2DD3A8]/30 bg-[#2DD3A8]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[.2em] text-[#128363] dark:text-[#2DD3A8]">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#2DD3A8]/30 bg-[#2DD3A8]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[.2em] text-[#128363] dark:text-[#2DD3A8]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#2DD3A8]" />
                 Full Stack Developer
               </span>
 
@@ -255,7 +258,7 @@ export default function Resume() {
                 <motion.div
                   variants={highlightItem}
                   whileHover={{ y: -4, borderColor: "rgba(45,211,168,0.5)", backgroundColor: "rgba(45,211,168,0.04)" }}
-                  className="rounded-2xl border border-black/10 bg-black/[0.015] p-5 transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.03]"
+                  className="rounded-2xl border border-black/10 bg-black/[0.015] p-5 shadow-sm transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none"
                 >
                   <h4 className="mb-2 font-bold text-gray-900 dark:text-white">
                     Core Competencies
@@ -274,7 +277,7 @@ export default function Resume() {
                 <motion.div
                   variants={highlightItem}
                   whileHover={{ y: -4, borderColor: "rgba(45,211,168,0.5)", backgroundColor: "rgba(45,211,168,0.04)" }}
-                  className="rounded-2xl border border-black/10 bg-black/[0.015] p-5 transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.03]"
+                  className="rounded-2xl border border-black/10 bg-black/[0.015] p-5 shadow-sm transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none"
                 >
                   <div className="mb-2 flex items-center gap-2">
                     <h4 className="font-bold text-gray-900 dark:text-white">Education</h4>
@@ -296,11 +299,11 @@ export default function Resume() {
               <motion.div
                 variants={highlightItem}
                 whileHover={{ borderColor: "rgba(45,211,168,0.5)" }}
-                className="mt-4 flex-1 rounded-2xl border border-black/10 bg-black/[0.015] p-5 transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.03] sm:p-6"
+                className="mt-4 flex-1 rounded-2xl border border-black/10 bg-black/[0.015] p-5 shadow-sm transition-colors duration-300 dark:border-white/10 dark:bg-white/[0.03] dark:shadow-none sm:p-6"
               >
                 <div className="mb-5 flex items-center justify-between">
                   <h4 className="font-bold text-gray-900 dark:text-white">Primary Stack</h4>
-                  <span className="text-xs font-medium text-gray-500">
+                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
                     See Skills section for full details
                   </span>
                 </div>
@@ -318,6 +321,7 @@ export default function Resume() {
                       variants={primarySkillItem}
                       whileHover={{
                         y: -3,
+                        scale: 1.03,
                         borderColor: "rgba(45,211,168,0.5)",
                         backgroundColor: "rgba(45,211,168,0.08)",
                       }}
@@ -345,7 +349,7 @@ export default function Resume() {
               viewport={{ once: true, amount: 0.3 }}
               className="flex h-full flex-col justify-between gap-8"
             >
-              <div className="rounded-3xl border border-black/10 bg-gray-50/80 p-6 dark:border-white/10 dark:bg-[#111111]/80 sm:p-7">
+              <div className="rounded-3xl border border-black/10 bg-gray-50/80 p-6 shadow-sm dark:border-white/10 dark:bg-[#111111]/80 dark:shadow-none sm:p-7">
                 {/* Top row: label + status dot */}
                 <div className="mb-6 flex items-center justify-between">
                   <span className="text-sm font-semibold uppercase tracking-[.18em] text-[#128363] dark:text-[#2DD3A8]">
@@ -367,7 +371,7 @@ export default function Resume() {
                     Hero section's photo treatment. No rotating ring. */}
                 <div className="relative mx-auto h-48 w-48 sm:h-56 sm:w-56">
                   <div className="absolute -inset-3 -z-10 rounded-2xl bg-gradient-to-br from-[#2DD3A8]/20 via-transparent to-transparent blur-xl" />
-                  <div className="relative h-full w-full overflow-hidden rounded-2xl border-2 border-white bg-white dark:border-[#0A0A0A] dark:bg-[#0A0A0A]">
+                  <div className="relative h-full w-full overflow-hidden rounded-2xl border-2 border-white bg-white shadow-lg dark:border-[#0A0A0A] dark:bg-[#0A0A0A] dark:shadow-none">
                     <motion.div
                       animate={{ scale: [1, 1.06, 1] }}
                       transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
@@ -399,7 +403,7 @@ export default function Resume() {
 
                 {/* Stack as chips */}
                 <div>
-                  <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[.18em] text-gray-500">
+                  <p className="mb-3 text-center text-xs font-semibold uppercase tracking-[.18em] text-gray-500 dark:text-gray-400">
                     Tech Stack
                   </p>
                   <motion.div
