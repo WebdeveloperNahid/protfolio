@@ -16,6 +16,33 @@ export interface Project {
 // (e.g. /images/projects/project-1.png placed in the public folder).
 export const PROJECTS: Project[] = [
   {
+    slug: "handyhub",
+    name: "HandyHub — Local Home Service Marketplace",
+    image: "https://i.ibb.co.com/ccQHj0Yp/Screenshot-2026-09-26-151502.png",
+    category: "Full Stack",
+    tags: ["Next.js", "TypeScript", "Express.js", "BetterAuth"],
+    description:
+      "A full-stack local service marketplace where users can find and book trusted providers such as electricians, plumbers, AC mechanics, and cleaners. Users can describe their problem or browse by category, send service requests, and leave reviews, while providers manage their profiles and services and accept or reject incoming requests. Admins oversee users, providers, and categories — all within a secure, role-based platform with email/password and Google OAuth login, and a responsive interface with light and dark mode.",
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "HeroUI",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "BetterAuth",
+    ],
+    liveLink: "https://handyhub-silk.vercel.app",
+    githubLink: "https://github.com/WebdeveloperNahid/handyhub",
+    challenges:
+      "As Team Lead of a 6-member team, the biggest challenge was keeping everyone's work consistent and conflict-free. I set up a monorepo with a layered backend architecture (Route → Middleware → Controller → Service), enforced branch protection with a pull request review workflow, and implemented role-based access so that users, providers, and admins each see only their own dashboard.",
+    improvements:
+      "Planning to add online payments, real-time notifications for service requests, and further performance and UI/UX refinements to make the platform fully real-world ready.",
+  },
+  {
     slug: "legalease",
     name: "LegalEase – Online Lawyer Hiring Platform",
     image: "https://i.ibb.co.com/bRmLQBTj/Screenshot-2026-07-24-170601.png",
@@ -92,5 +119,31 @@ export const PROJECTS: Project[] = [
       "Building the AI recommendation engine, integrating the Gemini API, and maintaining conversation context in the AI chat assistant were the biggest challenges — each took focused effort to get right, but I was able to work through them and get everything functioning smoothly.",
     improvements:
       "Planning to further polish the UI/UX design, improve overall performance and speed, and enable a full payment system to make the platform completely real-world ready.",
+  },
+    {
+    slug: "ideavault",
+    name: "IdeaVault — Startup Idea Sharing Platform",
+    image: "https://i.ibb.co.com/tM8p4DPs/Screenshot-2026-10-13-012035.png",
+    category: "Full Stack",
+    tags: ["React", "Express.js", "MongoDB", "JWT"],
+    description:
+      "A full-stack platform where users can share innovative startup ideas, explore ideas posted by others, and engage through comments and community discussions. Authenticated users can submit ideas with a title, category, description, budget, target audience, problem statement, and proposed solution, search ideas by title, filter by category, and manage their own ideas and comments — all protected by JWT-based authentication with Email/Password and Google OAuth login, and a responsive interface with light and dark mode.",
+    techStack: [
+      "React",
+      "Tailwind CSS",
+      "React Router",
+      "Axios",
+      "Firebase Auth",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "JWT",
+    ],
+    liveLink: "https://ideavault-nine-zeta.vercel.app",
+    githubLink: "https://github.com/WebdeveloperNahid",
+    challenges:
+      "The biggest challenge was securing private routes while keeping users logged in across page reloads. I solved this by combining Firebase authentication with JWT tokens, verifying the token on every protected API route, and restoring the user's session on reload so private pages stay accessible without a forced re-login.",
+    improvements:
+      "Planning to add idea upvotes and bookmarks, categories with trending ideas, and further UI/UX and performance refinements to make the platform fully real-world ready.",
   },
 ];
