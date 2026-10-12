@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "legalease",
     name: "LegalEase – Online Lawyer Hiring Platform",
-    image: "https://i.ibb.co.com/bRmLQBTj/Screenshot-2026-07-24-170601.png",
+    image: "https://i.ibb.co.com/6R2c4hd4/Screenshot-2026-10-13-013342.png",
     category: "Full Stack",
     tags: ["Next.js", "Stripe", "BetterAuth", "Express.js"],
     description:
