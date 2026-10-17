@@ -15,6 +15,31 @@ export interface Project {
 // Replace image URLs with your real project screenshots later
 // (e.g. /images/projects/project-1.png placed in the public folder).
 export const PROJECTS: Project[] = [
+  // PROJECTS array-r sheshe (IdeaVault er pore) ei object ta paste koro.
+  {
+    slug: "electroshop",
+    name: "ElectroShop — Electronics E-Commerce Platform",
+    image: "https://i.ibb.co.com/fVz1bwp1/Screenshot-2026-10-17-150941.png",
+    category: "Full Stack",
+    tags: ["Next.js", "Express.js", "PostgreSQL", "Prisma"],
+    description:
+      "A full-stack electronics e-commerce platform where users can browse and search gadgets and electronic products by category, view product details, and place orders through a smooth shopping experience. Admins manage products, categories, and orders from a dedicated dashboard — all backed by a relational PostgreSQL database modeled with Prisma ORM and a fast, responsive interface.",
+    techStack: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma ORM",
+    ],
+    liveLink: "https://electronics-wine.vercel.app/",
+    githubLink: "https://github.com/WebdeveloperNahid/electronics",
+    challenges:
+      "Designing a clean relational database schema with Prisma — handling relations between users, products, categories, and orders — and keeping the Next.js frontend in sync with the Express.js API were the biggest challenges. Moving from a NoSQL mindset to PostgreSQL required careful planning, but it resulted in a more structured and reliable data layer.",
+    improvements:
+      "Planning to add online payments, a wishlist and product reviews, advanced filtering and sorting, and further performance and UI/UX refinements to make the platform fully real-world ready.",
+  },
   {
     slug: "handyhub",
     name: "HandyHub — Local Home Service Marketplace",
